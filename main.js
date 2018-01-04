@@ -17,6 +17,18 @@ const secretsFile = fs.readFileSync('secrets.json')
 const secrets = JSON.parse(secretsFile)
 
 // main
+bot.on('ready', () =>{
+	for (guild in bot.guilds){
+		for (channel in guild.channels){
+			console.log(channel.type)
+			if(channel.type == 'text'){
+				channel.sendMessage('I am online and ready for the private ownership of the means of production.')
+			}else{
+				return
+			}
+		}
+	}
+});
 bot.on('message', (message) => {
 	if(message.content == '/hello'){
 		message.reply('Hello there.')
@@ -30,33 +42,26 @@ bot.on('message', (message) => {
 	}
 	if(message.content == '/helpme'){
 		person = message.author
+		console.log(person)
 		person.send('no')
 	}
-	if(message.content == '/ban'){
+	if(message.content == '/helpme?'){
+		person = message.author
+		console.log(person)
+		person.send('no')
+		message.channel.send(person)
+	}
+	if(message.content == '/ban'){ 
 		if(message.author.id == '292556142952054794'){
 			var waitingForBanID = true
 			message.reply('tell me who to ban then')
-			message.channel.awaitMessages()
+			const filter = message.author.id.startsWith(292556142952054794)
+			idStr = message.channel.awaitMessages(filter, { max: 1, time: 60000, errors: ['time'] })
+			id = parseInt(idStr)
+			ban.ban(id)
 		}
 	}
-	if(message.author.id == '292556142952054794'){
-		var one = 1
-		if(typeof parseInt(message.content) == typeof one){
-			if(waitingForBanID){
-				try{
-					waitingForBanID = false
-					id = parseInt(message.content)
-					ban.ban(id)
-					message.reply("ok den I'll do it")
-				}catch(Exception){
-					console.log(Exception)
-				}
-			}else{
-				return
-			}
-		}
 
-	}
 	if(message.content == '/info'){
 		embed = new discord.RichEmbed()
 		embed.setTitle('Bot Info')
@@ -66,6 +71,15 @@ bot.on('message', (message) => {
 		embed.addField("discord.js Version", discordJS["version"])
 		embed.addField("Language", info["language"])
 		message.channel.sendEmbed(embed)
+	}
+	if(message.content == '/nomore'){
+		if(message.author.id == '292556142952054794'){
+			bot.destroy()
+		}
+	}
+	if(message.content == '/wage'){
+		var wageEmbed = money.getWageEmbed(message.author.id, message.author)
+		message.channel.sendEmbed(wageEmbed)
 	}
 });
 
