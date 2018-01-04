@@ -1,11 +1,14 @@
 // discord
 const discord = require('discord.js')
-const bot = new discord.Client()
+const mainClass = require('./mainClass.js')
+const bot = mainClass.bot
 
 // plugins
 const music = require('./plugins/music.js')
 const ban = require('./plugins/ban.js')
 const money = require('./plugins/money.js')
+const system = require('./plugins/system.js')
+const userInfo = require('./plugins/userInfo.js')
 
 // other requirements
 const fs = require('fs')
@@ -15,6 +18,10 @@ const discordJSFile = fs.readFileSync('node_modules/discord.js/package.json')
 const discordJS = JSON.parse(discordJSFile)
 const secretsFile = fs.readFileSync('secrets.json')
 const secrets = JSON.parse(secretsFile)
+const moneyTxt = fs.readFileSync('./money.txt')
+const banTxt = fs.readFileSync('./ban.txt')
+const pluginsFile = fs.readFileSync('./plugins/plugins.json')
+const plugins = JSON.parse(pluginsFile)
 
 // main
 bot.on('ready', () =>{
@@ -45,12 +52,6 @@ bot.on('message', (message) => {
 		console.log(person)
 		person.send('no')
 	}
-	if(message.content == '/helpme?'){
-		person = message.author
-		console.log(person)
-		person.send('no')
-		message.channel.send(person)
-	}
 	if(message.content == '/ban'){ 
 		if(message.author.id == '292556142952054794'){
 			var waitingForBanID = true
@@ -72,15 +73,47 @@ bot.on('message', (message) => {
 		embed.addField("Language", info["language"])
 		message.channel.sendEmbed(embed)
 	}
-	if(message.content == '/nomore'){
+	if(message.content == '/reload'){
 		if(message.author.id == '292556142952054794'){
+			message.channel.send('I shall be back.')
+			message.channel.send('Goodbye.')
 			bot.destroy()
+			bot.login(secrets["token"])
 		}
 	}
 	if(message.content == '/wage'){
 		var wageEmbed = money.getWageEmbed(message.author.id, message.author)
 		message.channel.sendEmbed(wageEmbed)
 	}
+	if(message.content == '/sys'){
+		sysEmbed = system.getSysEmbed(message.author.avatarURL)
+		message.channel.sendEmbed(sysEmbed)
+		message.reply()
+	}
+	if(message.content == '/myself'){
+		message.delete()
+		userEmbed = userInfo.getUserEmbed(message.author)
+		message.channel.sendEmbed(userEmbed)
+	}
+	if(message.content == '/profpic'){
+		message.channel.sendMessage(message.author.avatarURL)
+	}
+	if(message.content == '/money -p'){
+		if(plugins["money"] == "ready"){
+			message.channel.sendCode('js', moneyTxt)
+			message.channel.send('https://github.com/Tonk1e/Capitalism/blob/master/plugins/money.js')
+			message.channel.send('All of the plugins are also on the GitHub repository.')
+		}else{
+			message.channel.send('That plugin is not ready for viewing.')
+		}
+	}
+	if(message.content == '/ban -p'){
+		if(plugins["ban"] == "ready"){
+			message.channel.sendCode('js', banTxt)
+			message.channel.send('https://github.com/Tonk1e/Capitalism/blob/master/plugins/ban.js')
+			message.channel.send('All of the plugins are also on the GitHub repository.')
+		}else{
+			message.channel.send('That plugin is not ready for viewing.')
+		}
+	}
 });
-
-bot.login(secrets["token"])
