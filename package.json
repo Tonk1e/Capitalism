@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bufferutil": "^3.0.3",
     "discord.js": "^11.2.1",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^3.2.2-3",
+    "opusscript": "0.0.6",
     "windows-cpu": "^0.1.4"
   }
 }

@@ -2,6 +2,11 @@
 const discord = require('discord.js')
 const bot = new discord.Client()
 
+// other requirements
+const fs = require('fs')
+const wagesFile = fs.readFileSync('plugins/data/wages.json')
+const wages = JSON.parse(wagesFile)
+
 // main
 var getUserEmbed = (user) =>{
 	userEmbed = new discord.RichEmbed()

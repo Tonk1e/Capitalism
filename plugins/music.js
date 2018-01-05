@@ -7,7 +7,14 @@ const bot = mainClass.bot
 var jazz = (channel, message) =>{
 	channel.join()
 		.then(connection => {
-    		const dispatcher = connection.playFile('./music/jazz.mp3');
-  		})
-  		.catch(console.error);
+    		const dispatcher = connection.playFile('plugins/music/jazz.mp3');
+    		dispatcher.setVolume(0.5)
+    		dispatcher.on('error', e => {
+	    		channel.send(e)
+	  			console.log(e);
+	  		})
+		})
+    	.catch(console.error);
 }
+
+module.exports.jazz = jazz

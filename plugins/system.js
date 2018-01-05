@@ -18,10 +18,9 @@ class System{
 
 const sys = new System()
 
-var getSysEmbed = (img) =>{
+var getSysEmbed = () =>{
 	embed = new discord.RichEmbed()
 	embed.setTitle('System Info')
-	embed.setThumbnail('https://oss.adm.ntu.edu.sg/ayeshafa001/wp-content/uploads/sites/848/2017/02/free-3d-computer-flat-hd-wallpapers-download.jpg')
 	embed.setColor('ORANGE')
 	embed.addField('CPU Model', sys.cpuModel)
 	embed.addField('Architecture', sys.cpuArchitecture)

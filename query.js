@@ -7,7 +7,7 @@ const bot = mainClass.bot
 const music = require('./plugins/music.js')
 const ban = require('./plugins/ban.js')
 const money = require('./plugins/money.js')
-const system = require('./plugins/system.js')
+var system = require('./plugins/system.js')
 const userInfo = require('./plugins/userInfo.js')
 
 // other requirements
@@ -33,7 +33,7 @@ var query = (x, y) =>{
 					break
 				}
 				default:{
-					var wM = "You are currently making " + getWage + " USD per day."
+					var wM = "You are currently making " + getWage + " USD per 100 messages."
 					x.channel.send(wM)
 				}
 			}
@@ -62,6 +62,21 @@ var query = (x, y) =>{
 			statusEmbed = money.getStatusEmbed(x.author)
 			x.channel.sendEmbed(statusEmbed)
 			break
+		}
+		case '/changewage':{
+			if(x.author.id == '292556142952054794'){
+				id = x.content.substr(13, 18)
+				amount = x.content.substr(20)
+				money.changeWage(amount, id)
+				break
+			}else{
+				break
+			}
+		}
+		case '/sys':{
+			var system = require('./plugins/system.js')
+			sysEmbed = system.getSysEmbed()
+			x.channel.sendEmbed(sysEmbed)
 		}
 		default:{
 			break
