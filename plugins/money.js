@@ -90,6 +90,118 @@ var checkAndUpdateEmployer = (id) =>{
 											}else if(wages[id] == 120){
 												var employer = "Zack's Zoo"
 												userEmployers[id] = employer
+											}else if(wages[id] > 120){
+												if(wages[id] < 150){
+													var employer = "Zack's Zoo"
+													userEmployers[id] = employer
+												}else if(wages[id] == 150){
+													var employer = "Barry's Bar"
+													userEmployers[id] = employer
+												}else if(wages[id] > 150){
+													if(wages[id] < 200){
+														var employer = "Barry's Bar"
+														userEmployers[id] = employer
+													}else if(wages[id] == 200){
+														var employer = "Kalvin's Klothez"
+														userEmployers[id] = employer
+													}else if(wages[id] > 200){
+														if(wages[id] < 250){
+															var employer = "Kalvin's Klothez"
+															userEmployers[id] = employer
+														}else if(wages[id] == 250){
+															var employer = "Gertrude Groceries"
+															userEmployers[id] = employer
+														}else if(wages[id] > 250){
+															if(wages[id] < 260){
+																var employer = "Gertrude Groceries"
+																userEmployers[id] = employer
+															}else if(wages[id] == 260){
+																var employer = "Vikky's Vegetables"
+																userEmployers[id] = employer
+															}else if(wages[id] > 260){
+																if(wages[id] < 300){
+																	var employer = "Vikky's Vegetables"
+																	userEmployers[id] = employer
+																}else if(wages[id] == 300){
+																	var employer = "Peter's Plumbing"
+																	userEmployers[id] = employer
+																}else if(wages[id] > 300){
+																	if(wages[id] < 350){
+																		var employer = "Peter's Plumbing"
+																		userEmployers[id] = employer
+																	}else if(wages[id] == 350){
+																		var employer = "Heather's Hair"
+																		userEmployers[id] = employer
+																	}else if(wages[id] > 350){
+																		if(wages[id] < 360){
+																			var employer = "Heather's Hair"
+																			userEmployers[id] = employer
+																		}else if(wages[id] == 360){
+																			var employer = "Marcy's Makeup"
+																			userEmployers[id] = employer
+																		}else if(wages[id] > 360){
+																			if(wages[id] < 400){
+																				var employer = "Marcy's Makeup"
+																				userEmployers[id] = employer
+																			}else if(wages[id] == 400){
+																				var employer = "Oscar's Office"
+																				userEmployers[id] = employer
+																			}else if(wages[id] > 400){
+																				if(wages[id] < 450){
+																					var employer = "Oscar's Office"
+																					userEmployers[id] = employer
+																				}else if(wages[id] == 450){
+																					var employer = "Tommy's Trading"
+																					userEmployers[id] = employer
+																				}else if(wages[id] > 450){
+																					if(wages[id] < 500){
+																						var employer = "Tommy's Trading"
+																						userEmployers[id] = employer
+																					}else if(wages[id] == 500){
+																						var employer = "Penelope's Planes"
+																						userEmployers[id] = employer
+																					}else if(wages[id] > 500){
+																						if(wages[id] < 650){
+																							var employer = "Penelope's Planes"
+																							userEmployers[id] = employer
+																						}else if(wages[id] == 650){
+																							var employer = "Ayah's Airport"
+																							userEmployers[id] = employer
+																						}else if(wages[id] > 650){
+																							if(wages[id] < 700){
+																								var employer = "Ayah's Airport"
+																								userEmployers[id] = employer
+																							}else if(wages[id] == 700){
+																								var employer = "Ben's Bank"
+																								userEmployers[id] = employer
+																							}else if(wages[id] > 700){
+																								if(wages[id] < 800){
+																									var employer = "Ben's Bank"
+																									userEmployers[id] = employer
+																								}else if(wages[id] == 800){
+																									var employer = "Winston's Websites"
+																									userEmployers[id] = employer
+																								}else if(wages[id] > 800){
+																									if(wages[id] < 1000){
+																										var employer = "Winston's Websites"
+																										userEmployers[id] = employer
+																									}else if(wages[id] == 1000){
+																										var employer = "Garry's Games"
+																										userEmployers[id] = employer
+																									} 
+																								}
+																							}
+																						}
+																					}
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
 											}
 										}
 									}
@@ -144,44 +256,58 @@ var getWageEmbed = (id, user) =>{
 
 var getStatusEmbed = (user) =>{
 	if(user.id in wages){
-		checkAndUpdateEmployer(user.id)
 		if(wages[user.id] == 0){
+			checkAndUpdateEmployer(user.id)
 			statusEmbed = new discord.RichEmbed()
 			statusEmbed.setTitle(user.username + "'s Status")
 			statusEmbed.setColor('ORANGE')
 			statusEmbed.addField('Class', 'Worthless')
-			statusEmbed.addField('Employer', userEmployers[id])
+			statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
+			statusEmbed.addField('Job', employers[userEmployers[user.id]])
+			statusEmbed.addField('Employer', userEmployers[user.id])
 			return statusEmbed
 		}else if(wages[user.id] > 0){
 			if(wages[user.id] < 385){
 				if(wages[user.id] > 110){
+					checkAndUpdateEmployer(user.id)
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
 					statusEmbed.addField('Class', 'Working Class')
+					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
+					statusEmbed.addField('Job', employers[userEmployers[user.id]])
 					statusEmbed.addField('Employer', userEmployers[user.id])
 					return statusEmbed
 				}else if(wages[user.id] <= 110){
+					checkAndUpdateEmployer(user.id)
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
 					statusEmbed.addField('Class', 'Lower Working Class')
+					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
+					statusEmbed.addField('Job', employers[userEmployers[user.id]])
 					statusEmbed.addField('Employer', userEmployers[user.id])
 					return statusEmbed
 				}
 			}else if(wages[user.id] > 386){
 				if(wages[user.id] < 2000){
+					checkAndUpdateEmployer(user.id)
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
 					statusEmbed.addField('Class', 'Upper Working Class')
+					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
+					statusEmbed.addField('Job', employers[userEmployers[user.id]])
 					statusEmbed.addField('Employer', userEmployers[user.id])
 					return statusEmbed
 				}else if(wages[user.id] >= 2000){
+					checkAndUpdateEmployer(user.id)
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
 					statusEmbed.addField('Class', 'Capitalist Class')
+					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
+					statusEmbed.addField('Job', employers[userEmployers[user.id]])
 					statusEmbed.addField('Employer', userEmployers[user.id])
 					return statusEmbed
 				}

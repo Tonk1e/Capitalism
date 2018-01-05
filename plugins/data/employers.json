@@ -1,57 +1,57 @@
 {
-	"Their Belly" : 0,
+	"Their Belly" : "Discord Server",
 
-	"Mom" : 10,
+	"Mom" : "Polishing",
 
-	"The Paper Round Manager" : 20,
+	"The Paper Round Manager" : "Paper boy/girl",
 
-	"Denny's Doughnuts" : 30,
+	"Denny's Doughnuts" : "Cashier",
 
-	"Sammy's Sausages" : 40,
+	"Sammy's Sausages" : "Sausage Cooker",
 
-	"Henry's Hospital" : 50,
+	"Henry's Hospital" : "Nurse",
 
-	"Cameron's Cakes" : 60,
+	"Cameron's Cakes" : "Cashier",
 
-	"Andy's Alcohol" : 80,
+	"Andy's Alcohol" : "Cashier",
 
-	"Jenny's Jewellry" : 100,
+	"Jenny's Jewellry" : "Security",
 
-	"Zack's Zoo" : 120,
+	"Zack's Zoo" : "Zookeeper",
 
-	"Barry's Bar" : 150,
+	"Barry's Bar" : "Bartender",
 
-	"Kalvin's Klothez" : 200,
+	"Kalvin's Klothez" : "Cashier",
 
-	"Gertrude Groceries" : 250,
+	"Gertrude Groceries" : "Cashier",
 
-	"Vikky's Vegetables" : 260,
+	"Vikky's Vegetables" : "Manager",
 
-	"Peter's Plumming" : 300,
+	"Peter's Plumbing" : "Plumber",
 
-	"Heather's Hair" : 350,
+	"Heather's Hair" : "Stylist",
 
-	"Marcy's Makeup" : 360,
+	"Marcy's Makeup" : "Store Manager",
 
-	"Oscar's Office" : 400,
+	"Oscar's Office" : "Marketing",
 
-	"Tommy's Trading" : 450,
+	"Tommy's Trading" : "Broker",
 
-	"Penelope's Planes" : 500,
+	"Penelope's Planes" : "Pilot",
 
-	"Ayah's Airport" : 650,
+	"Ayah's Airport" : "Site Manager",
 
-	"Ben's Bank" : 700,
+	"Ben's Bank" : "Branch Manager",
 
-	"Winston's Websites" : 800,
+	"Winston's Websites" : "Web Developer",
 
-	"Garry's Games" : 1000,
+	"Garry's Games" : "Team Leader/Game Developer",
 
-	"Amanda's Architects" : 1250,
+	"Amanda's Architects" : "Architect",
 
-	"Penny's Properties" : 1500,
+	"Penny's Properties" : "Manager",
 
-	"Frank's Films" : 1750,
+	"Frank's Films" : "Film Producer",
 
-	"Self Employed" : 2000
+	"Self Employed" : "CEO"
 }
