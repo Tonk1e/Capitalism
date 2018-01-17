@@ -1,6 +1,7 @@
 // discord
 const discord = require('discord.js')
-const bot = new discord.Client()
+const mainClass = require('../mainClass.js')
+const bot = mainClass.bot
 
 // other requirements
 const fs = require('fs')
@@ -10,6 +11,10 @@ const employersFile = fs.readFileSync('plugins/data/employers.json')
 var employers = JSON.parse(employersFile)
 const userEmployersFile = fs.readFileSync('plugins/data/userEmployers.json')
 var userEmployers = JSON.parse(userEmployersFile)
+const accountsFile = fs.readFileSync('plugins/data/accounts.json')
+var accounts = JSON.parse(accountsFile)
+const counterFile = fs.readFileSync('plugins/data/counter.json')
+var counter = JSON.parse(counterFile)
 
 
 // main
@@ -188,7 +193,7 @@ var checkAndUpdateEmployer = (id) =>{
 																									}else if(wages[id] == 1000){
 																										var employer = "Garry's Games"
 																										userEmployers[id] = employer
-																									} 
+																									}
 																								}
 																							}
 																						}
@@ -273,6 +278,7 @@ var getStatusEmbed = (user) =>{
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
+					statusEmbed.setThumbnail(user.avatarURL)
 					statusEmbed.addField('Class', 'Working Class')
 					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
 					statusEmbed.addField('Job', employers[userEmployers[user.id]])
@@ -283,6 +289,7 @@ var getStatusEmbed = (user) =>{
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
+					statusEmbed.setThumbnail(user.avatarURL)
 					statusEmbed.addField('Class', 'Lower Working Class')
 					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
 					statusEmbed.addField('Job', employers[userEmployers[user.id]])
@@ -295,6 +302,7 @@ var getStatusEmbed = (user) =>{
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
+					statusEmbed.setThumbnail(user.avatarURL)
 					statusEmbed.addField('Class', 'Upper Working Class')
 					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
 					statusEmbed.addField('Job', employers[userEmployers[user.id]])
@@ -305,6 +313,7 @@ var getStatusEmbed = (user) =>{
 					statusEmbed = new discord.RichEmbed()
 					statusEmbed.setTitle(user.username + "'s Status")
 					statusEmbed.setColor('ORANGE')
+					statusEmbed.setThumbnail(user.avatarURL)
 					statusEmbed.addField('Class', 'Capitalist Class')
 					statusEmbed.addField('Wage', wages[user.id] + ' USD/100 messages')
 					statusEmbed.addField('Job', employers[userEmployers[user.id]])
@@ -316,7 +325,53 @@ var getStatusEmbed = (user) =>{
 	}
 }
 
+var accountEmbed = (x) =>{
+	accEmbed = new discord.RichEmbed()
+	accEmbed.setTitle(x.username)
+	accEmbed.setThumbnail(x.avatarURL)
+	accEmbed.addField('ID', x.id)
+	accEmbed.addField('Balance', accounts[x.id])
+	return accEmbed
+}
+
+var createAccount = (x) =>{
+	if(x.author.id in accounts){
+		x.reply("You already have an account.")
+	}else{
+		accounts[x.author.id] = 0
+		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
+		x.reply("Your account has been created with the ID of " + x.author.id + ".")
+		accEmbed = accountEmbed(x.author)
+		x.channel.send(accEmbed)
+	}
+}
+
+var incrementCounter = (x) =>{
+	if(x.id in counter){
+		counter[x.id] = counter[x.id] + 1
+		fs.writeFile('plugins/data/counter.json', JSON.stringify(counter, null, 2));
+	}else{
+		counter[x.id] = 1
+	}
+}
+
+var checkAndUpdateBalance = (x) =>{
+	value = counter[x.id]
+	if(value == 100){
+		if(x.id in accounts){
+			accounts[x.id] = accounts[x.id] + wages[x.id]
+			counter[x.id] = 0
+			fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
+			fs.writeFile('plugins/data/counter.json', JSON.stringify(counter, null, 2));
+		}
+	}
+}
+
 module.exports.getWage = getWage
 module.exports.getWageEmbed = getWageEmbed
 module.exports.getStatusEmbed = getStatusEmbed
 module.exports.changeWage = changeWage
+module.exports.createAccount = createAccount
+module.exports.checkAndUpdateBalance = checkAndUpdateBalance
+module.exports.incrementCounter = incrementCounter
+module.exports.accountEmbed = accountEmbed

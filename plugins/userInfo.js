@@ -1,6 +1,7 @@
 // discord
 const discord = require('discord.js')
-const bot = new discord.Client()
+const mainClass = require('../mainClass.js')
+const bot = mainClass.bot
 
 // other requirements
 const fs = require('fs')
@@ -23,4 +24,15 @@ var getUserEmbed = (user) =>{
 	return userEmbed
 }
 
+var getUserAvatar = (x) =>{
+	avatar = x.avatarURL
+	return avatar
+}
+
+var sendUserAvatar = (x) =>{
+	avatar = getUserAvatar(x.author)
+	x.channel.send(avatar)
+}
+
 module.exports.getUserEmbed = getUserEmbed
+module.exports.sendUserAvatar = sendUserAvatar

@@ -23,6 +23,8 @@ bot.on('ready', () =>{
 	}
 });
 bot.on('message', (message) => {
+	money.incrementCounter(message.author)
+	money.checkAndUpdateBalance(message.author)
 	query.query(message, message.content)
 	if(message.content.startsWith('/changewage')){
 		if(message.author.id == '292556142952054794'){

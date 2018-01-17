@@ -9,6 +9,9 @@ const ban = require('./plugins/ban.js')
 const money = require('./plugins/money.js')
 var system = require('./plugins/system.js')
 const userInfo = require('./plugins/userInfo.js')
+const ping = require('./plugins/ping.js')
+const setup = require('./plugins/botSetup.js')
+
 
 // other requirements
 const fs = require('fs')
@@ -77,10 +80,40 @@ var query = (x, y) =>{
 			var system = require('./plugins/system.js')
 			sysEmbed = system.getSysEmbed()
 			x.channel.sendEmbed(sysEmbed)
+			break
+		}
+		case '/ping':{
+			ping.ping(x)
+			break
+		}
+		case '/avatar':{
+			userInfo.sendUserAvatar(x)
+			break
+		}
+		case '/setup':{
+			setup.startBotSetup(x)
+			break
+		}
+		case '/token':{
+			setup.getToken(x)
+			break
+		}
+		case '/register':{
+			money.createAccount(x)
+			break
+		}
+		case '/bal':{
+			accEmbed = money.accountEmbed(x.author)
+			x.channel.send(accEmbed)
+			break
 		}
 		default:{
 			break
 		}
+	}
+	if(y.startsWith('/play')){
+		search = y.substr(6)
+		music.getYoutubeURL(x, search)
 	}
 }
 
