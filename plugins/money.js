@@ -15,6 +15,8 @@ const accountsFile = fs.readFileSync('plugins/data/accounts.json')
 var accounts = JSON.parse(accountsFile)
 const counterFile = fs.readFileSync('plugins/data/counter.json')
 var counter = JSON.parse(counterFile)
+const invoiceFile = fs.readFileSync('plugins/data/invoices.json')
+var invoices = JSON.parse(invoiceFile)
 
 
 // main
@@ -325,10 +327,54 @@ var getStatusEmbed = (user) =>{
 	}
 }
 
+var accountInfoEmbed = (x, y, z) =>{
+	var embed = new discord.RichEmbed()
+	embed.setTitle(y +  " Account Info")
+	embed.setColor('ORANGE')
+	embed.addField("Account ID", z)
+	embed.addField("Account Name", bot.fetchUser(z).username)
+	embed.addField("Status", "idk rn")
+	return embed
+}
+
+var createInvoice = (x, y, date, amount) =>{
+	var invoice = new discord.RichEmbed()
+	var invoiceID = Math.random() * 100000000000000000
+	if(invoiceID in invoices){
+		invoiceID = Math.random() * 100000000000000000
+		invoice.setTitle('Invoice ' + invoiceID)
+		invoice.setThumbnail(bot.user.avatarURL)
+		invoice.setColor('ORANGE')
+		invoice.addField("Billing Agreement Date", date)
+		invoice.addField("Transaction Amount", amount + " USD")
+		invoice.addField("Payer ID", '292556142952054794')
+		invoice.addField("Recipient ID", '337333673781100545')
+		embed1 = accountInfoEmbed(x, "Payer", '292556142952054794')
+		embed2 = accountInfoEmbed(x, "Recipient", '337333673781100545')
+		x.channel.send(invoice)
+		x.channel.send(embed1)
+		x.channel.send(embed2)
+	}else{
+		invoice.setTitle('Invoice ' + invoiceID)
+		invoice.setThumbnail(bot.user.avatarURL)
+		invoice.setColor('ORANGE')
+		invoice.addField("Billing Agreement Date", date)
+		invoice.addField("Transaction Amount", amount + " USD")
+		invoice.addField("Payer ID", '292556142952054794')
+		invoice.addField("Recipient ID", '337333673781100545')
+		embed1 = accountInfoEmbed(x, "Payer", '292556142952054794')
+		embed2 = accountInfoEmbed(x, "Recipient", '337333673781100545')
+		x.channel.send(invoice)
+		//x.channel.send(embed1)
+		//x.channel.send(embed2)
+	}
+}
+
 var accountEmbed = (x) =>{
 	accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
 	accEmbed.setThumbnail(x.avatarURL)
+	accEmbed.setColor('ORANGE')
 	accEmbed.addField('ID', x.id)
 	accEmbed.addField('Balance', accounts[x.id])
 	return accEmbed
@@ -341,7 +387,7 @@ var createAccount = (x) =>{
 		accounts[x.author.id] = 0
 		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
 		x.reply("Your account has been created with the ID of " + x.author.id + ".")
-		accEmbed = accountEmbed(x.author)
+		var accEmbed = accountEmbed(x.author)
 		x.channel.send(accEmbed)
 	}
 }
@@ -356,7 +402,7 @@ var incrementCounter = (x) =>{
 }
 
 var checkAndUpdateBalance = (x) =>{
-	value = counter[x.id]
+	var value = counter[x.id]
 	if(value == 100){
 		if(x.id in accounts){
 			accounts[x.id] = accounts[x.id] + wages[x.id]
@@ -367,6 +413,55 @@ var checkAndUpdateBalance = (x) =>{
 	}
 }
 
+var checkMessagesUntilPaid = (x) =>{
+	amount = 100 - counter[x]
+	return amount
+}
+
+var returnCounterEmbed = (x) =>{
+	var counterEmbed = new discord.RichEmbed()
+	var messageCountdown = checkMessagesUntilPaid(x.author.id)
+	counterEmbed.setTitle(x.author.username + "'s Pay")
+	counterEmbed.setThumbnail(x.author.avatarURL)
+	counterEmbed.setColor('ORANGE')
+	counterEmbed.addField('Messages Until Pay', messageCountdown)
+	counterEmbed.addField('Amount Due to be Paid', wages[x.author.id])
+	x.channel.send(counterEmbed)
+}
+
+var transfer = (account1, account2, amount) =>{
+	if((account1 - amount) >= 0){
+		account1 = account1 - amount
+		account2 = account2 + amount
+		return "The transfer was successful."
+	}else{
+		return "There was not sufficient funds in the account."
+	}
+}
+
+var returnID = (x) =>{
+	if(!null in x.mentions.users){
+		idEmbed = new discord.RichEmbed()
+		idEmbed.setTitle(x.mentions.users.username + "'s Account ID")
+		idEmbed.setThumbnail(x.mentions.users.avatarURL)
+		idEmbed.setColor('ORANGE')
+		x.channel.send(idEmbed)
+	}else{
+		console.log(x.mentions)
+		idEmbed = new discord.RichEmbed()
+		idEmbed.setTitle(x.author.username + "'s Account ID")
+		idEmbed.setThumbnail(x.author.avatarURL)
+		idEmbed.setColor('ORANGE')
+		x.channel.send(idEmbed)
+	}
+}
+
+var processTransferRequest = (x, y, account1, account2, amount) =>{
+	createInvoice(x, y, new Date(), amount)
+	transfer_ = transfer(account1, account2, amount)
+	x.channel.send(transfer_)
+}
+
 module.exports.getWage = getWage
 module.exports.getWageEmbed = getWageEmbed
 module.exports.getStatusEmbed = getStatusEmbed
@@ -375,3 +470,6 @@ module.exports.createAccount = createAccount
 module.exports.checkAndUpdateBalance = checkAndUpdateBalance
 module.exports.incrementCounter = incrementCounter
 module.exports.accountEmbed = accountEmbed
+module.exports.returnCounterEmbed = returnCounterEmbed
+module.exports.returnID = returnID
+module.exports.createInvoice = createInvoice

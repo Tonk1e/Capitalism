@@ -7,10 +7,11 @@ const bot = mainClass.bot
 const music = require('./plugins/music.js')
 const ban = require('./plugins/ban.js')
 const money = require('./plugins/money.js')
-var system = require('./plugins/system.js')
+const system = require('./plugins/system.js')
 const userInfo = require('./plugins/userInfo.js')
 const ping = require('./plugins/ping.js')
 const setup = require('./plugins/botSetup.js')
+const random = require('./plugins/random.js')
 
 
 // other requirements
@@ -49,6 +50,10 @@ var query = (x, y) =>{
 			}else{
 				break
 			}
+			break
+		}
+		case '/play':{
+			music.getYoutubeURL(x, y)
 			break
 		}
 		case '/myself':{
@@ -107,13 +112,27 @@ var query = (x, y) =>{
 			x.channel.send(accEmbed)
 			break
 		}
+		case '/check':{
+			money.returnCounterEmbed(x)
+			break
+		}
+		case '/invoice':{
+			money.createInvoice(x, y, new Date(), 400)
+			break
+		}
 		default:{
 			break
 		}
 	}
+	if(y.startsWith('/acc')){
+		money.returnID(x)
+	}
 	if(y.startsWith('/play')){
 		search = y.substr(6)
 		music.getYoutubeURL(x, search)
+	}
+	if(y.startsWith('/copy')){
+		random.copy(x)
 	}
 }
 

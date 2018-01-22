@@ -42,11 +42,11 @@ var getYoutubeURL = (x, y) =>{
 	  key: secrets["GOOGLE_API_KEY"]
 	}
 	
-	search(y, opts, function(err, results) {
-	  if(err) return console.log(err);
+	search("joji thom 5 hours", opts, function(err, results) {
+		if(err) return console.log(err);
 	 
-	  console.dir(results);
-	  play(x, results.values().link)
+		var results_ = JSON.stringify(results)
+		console.log(results_[1])
 	});
 }
 
