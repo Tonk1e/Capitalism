@@ -370,6 +370,10 @@ var createInvoice = (x, y, date, amount) =>{
 	}
 }
 
+var helpme = (bum) =>{
+	
+}
+
 var accountEmbed = (x) =>{
 	accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
@@ -401,6 +405,8 @@ var incrementCounter = (x) =>{
 	}
 }
 
+
+
 var checkAndUpdateBalance = (x) =>{
 	var value = counter[x.id]
 	if(value == 100){
@@ -412,6 +418,8 @@ var checkAndUpdateBalance = (x) =>{
 		}
 	}
 }
+
+var helpmeImg
 
 var checkMessagesUntilPaid = (x) =>{
 	amount = 100 - counter[x]
