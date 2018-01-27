@@ -19,6 +19,7 @@ var incrementSecs = () =>{
 		uptime["mins"] = uptime["mins"] + 1
 	}
 	if(uptime["mins"] == 60){
+		uptime["mins"] = 0
 		uptime["hrs"] = uptime["hrs"] + 1
 	}
 	uptime["secs"] = uptime["secs"] + 1
