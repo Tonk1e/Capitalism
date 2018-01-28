@@ -17,6 +17,8 @@ const counterFile = fs.readFileSync('plugins/data/counter.json')
 var counter = JSON.parse(counterFile)
 const invoiceFile = fs.readFileSync('plugins/data/invoices.json')
 var invoices = JSON.parse(invoiceFile)
+const interestFile = fs.readFileSync('plugins/data/interest.json')
+var interest = JSON.parse(interestFile)
 
 
 // main
@@ -358,6 +360,19 @@ var createInvoice = (x, y, date, amount) =>{
 	}
 }
 
+<<<<<<< HEAD
+var payInterest = (x) =>{
+	if(x in accounts){
+		accounts[x] = accounts[x] * 1.03
+		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
+		return "The interest was payed successfully."
+	}else{
+		return "There is no account with the specified ID."
+	}
+}
+
+=======
+>>>>>>> 032daa23760ed6e11f635893bef82190895eb639
 var accountEmbed = (x) =>{
 	accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
@@ -381,11 +396,14 @@ var createAccount = (x) =>{
 }
 
 var incrementCounter = (x) =>{
-	if(x.id in counter){
+	if(x.id in counter && x.id in interest){
 		counter[x.id] = counter[x.id] + 1
+		interest[x.id] = interest[x.id] + 1
 		fs.writeFile('plugins/data/counter.json', JSON.stringify(counter, null, 2));
+		fs.writeFile('plugins/data/interest.json', JSON.stringify(interest, null, 2));
 	}else{
 		counter[x.id] = 1
+		interest[x.id] = 1
 	}
 }
 
@@ -393,12 +411,20 @@ var incrementCounter = (x) =>{
 
 var checkAndUpdateBalance = (x) =>{
 	var value = counter[x.id]
+	var value2 = interest[x.id]
 	if(value == 100){
 		if(x.id in accounts){
 			accounts[x.id] = accounts[x.id] + wages[x.id]
 			counter[x.id] = 0
 			fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
 			fs.writeFile('plugins/data/counter.json', JSON.stringify(counter, null, 2));
+		}
+	}
+	if(value2 == 200){
+		if(x.id in accounts){
+			payInterest(x.id)
+			interest[x.id] = 1
+			fs.writeFile('plugins/data/interest.json', JSON.stringify(interest, null, 2));
 		}
 	}
 }
@@ -452,6 +478,21 @@ var processTransferRequest = (x, y, account1, account2, amount) =>{
 	x.channel.send(transfer_)
 }
 
+class shop{
+	constructor(){
+		this.vipList = [1, 250, "Get added to the VIP list."]
+		this.buy = (itemID, id) =>{
+			if(id in accounts){
+				if((accounts[id] - itemID[1]) >= 0){
+					accounts[id] = accounts[id] - itemID[1]
+				}
+			}
+		}
+	}
+
+}
+
+module.exports.shop = shop
 module.exports.getWage = getWage
 module.exports.getWageEmbed = getWageEmbed
 module.exports.getStatusEmbed = getStatusEmbed

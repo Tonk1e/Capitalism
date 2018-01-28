@@ -8,6 +8,8 @@ var main = require('../main.js')
 fs = require('fs')
 const uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
+const infoFile = fs.readFileSync('info.json')
+var info = JSON.parse(infoFile)
 
 // main
 var getUptime = (x) =>{
@@ -29,7 +31,7 @@ var ping = (x) =>{
 	embed.setTitle('Bot Info')
 	embed.setColor('ORANGE')
 	embed.addField('Ping', ping + ' ms')
-	embed.addField('Status', bot.status)
+	embed.addField('Current Machine', info["machine"])
 	embed.addField('Uptime', main.getUptime(x))
 	x.channel.sendEmbed(embed)
 }
