@@ -343,19 +343,7 @@ var createInvoice = (x, y, date, amount) =>{
 	var invoice = new discord.RichEmbed()
 	var invoiceID = Math.random() * 100000000000000000
 	if(invoiceID in invoices){
-		invoiceID = Math.random() * 100000000000000000
-		invoice.setTitle('Invoice ' + invoiceID)
-		invoice.setThumbnail(bot.user.avatarURL)
-		invoice.setColor('ORANGE')
-		invoice.addField("Billing Agreement Date", date)
-		invoice.addField("Transaction Amount", amount + " USD")
-		invoice.addField("Payer ID", '292556142952054794')
-		invoice.addField("Recipient ID", '337333673781100545')
-		embed1 = accountInfoEmbed(x, "Payer", '292556142952054794')
-		embed2 = accountInfoEmbed(x, "Recipient", '337333673781100545')
-		x.channel.send(invoice)
-		x.channel.send(embed1)
-		x.channel.send(embed2)
+		createInvoice(x, y, date, amount)
 	}else{
 		invoice.setTitle('Invoice ' + invoiceID)
 		invoice.setThumbnail(bot.user.avatarURL)
@@ -372,6 +360,7 @@ var createInvoice = (x, y, date, amount) =>{
 	}
 }
 
+<<<<<<< HEAD
 var payInterest = (x) =>{
 	if(x in accounts){
 		accounts[x] = accounts[x] * 1.03
@@ -382,6 +371,8 @@ var payInterest = (x) =>{
 	}
 }
 
+=======
+>>>>>>> 032daa23760ed6e11f635893bef82190895eb639
 var accountEmbed = (x) =>{
 	accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
@@ -437,8 +428,6 @@ var checkAndUpdateBalance = (x) =>{
 		}
 	}
 }
-
-var helpmeImg
 
 var checkMessagesUntilPaid = (x) =>{
 	amount = 100 - counter[x]
