@@ -19,6 +19,7 @@ var incrementSecs = () =>{
 		uptime["mins"] = uptime["mins"] + 1
 	}
 	if(uptime["mins"] == 60){
+		uptime["mins"] = 0
 		uptime["hrs"] = uptime["hrs"] + 1
 	}
 	uptime["secs"] = uptime["secs"] + 1
@@ -37,7 +38,39 @@ var getUptime = (x) =>{
 	return uptime_
 }
 
+var updateStatus = () =>{
+	uptimeHrs = uptime["hrs"] + ' hrs '
+	uptimeMins = uptime["mins"] + ' mins '
+	uptimeSecs = uptime["secs"] + ' secs'
+	uptime_ = uptimeHrs + uptimeMins + uptimeSecs
+	bot.user.setGame(uptime_)
+}
+
+var startUpMessage1 = () =>{
+	bot.user.setGame("You")
+}
+
+var startUpMessage2 = () =>{
+	bot.user.setGame("Are")
+}
+
+var startUpMessage3 = () =>{
+	bot.user.setGame("Gay.")
+}
+
+var startUpMessage = (int) =>{
+	if(int == 1){
+		startUpMessage1()
+	}else if(int == 2){
+		startUpMessage2()
+	}else if(int == 3){
+		startUpMessage3()
+	}
+}
+
 bot.on('ready', () =>{
+	bot.user.setStatus('dnd')
+	bot.user.setGame("with money.")
 	for (guild in bot.guilds){
 		for (channel in guild.channels){
 			console.log(channel.type)

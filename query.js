@@ -7,6 +7,7 @@ const bot = mainClass.bot
 const music = require('./plugins/music.js')
 const ban = require('./plugins/ban.js')
 const money = require('./plugins/money.js')
+const shop = new money.shop()
 const system = require('./plugins/system.js')
 const userInfo = require('./plugins/userInfo.js')
 const ping = require('./plugins/ping.js')
@@ -22,8 +23,6 @@ const discordJSFile = fs.readFileSync('node_modules/discord.js/package.json')
 const discordJS = JSON.parse(discordJSFile)
 const secretsFile = fs.readFileSync('secrets.json')
 const secrets = JSON.parse(secretsFile)
-const moneyTxt = fs.readFileSync('./money.txt')
-const banTxt = fs.readFileSync('./ban.txt')
 const pluginsFile = fs.readFileSync('./plugins/plugins.json')
 const plugins = JSON.parse(pluginsFile)
 
@@ -119,6 +118,11 @@ var query = (x, y) =>{
 		case '/invoice':{
 			money.createInvoice(x, y, new Date(), 400)
 			break
+		}
+		case '/bye':{
+			if(x.author.id == '292556142952054794'){
+				bot.destroy()
+			}
 		}
 		default:{
 			break
