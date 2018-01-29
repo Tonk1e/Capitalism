@@ -12,7 +12,6 @@ const uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
 
 // main
-
 var incrementSecs = () =>{
 	if(uptime["secs"] == 60){
 		uptime["secs"] = 0
@@ -89,7 +88,15 @@ bot.on('ready', () =>{
 });
 bot.on('message', (message) => {
 	money.incrementCounter(message.author)
-	money.checkAndUpdateBalance(message.author)
+	var check = money.checkAndUpdateBalance(message.author)
+	switch(check){
+		case 1:{
+			message.reply("You have received your pay.")
+		}
+		case 2:{
+			message.reply("Interest has been payed on the money in your account.")
+		}
+	}
 	query.query(message, message.content)
 	if(message.content.startsWith('/changewage')){
 		if(message.author.id == '292556142952054794'){

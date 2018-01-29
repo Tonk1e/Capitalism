@@ -345,6 +345,7 @@ var createInvoice = (x, y, date, amount) =>{
 	if(invoiceID in invoices){
 		createInvoice(x, y, date, amount)
 	}else{
+		invoices[invoiceID] = 1
 		invoice.setTitle('Invoice ' + invoiceID)
 		invoice.setThumbnail(bot.user.avatarURL)
 		invoice.setColor('ORANGE')
@@ -352,15 +353,10 @@ var createInvoice = (x, y, date, amount) =>{
 		invoice.addField("Transaction Amount", amount + " USD")
 		invoice.addField("Payer ID", '292556142952054794')
 		invoice.addField("Recipient ID", '337333673781100545')
-		embed1 = accountInfoEmbed(x, "Payer", '292556142952054794')
-		embed2 = accountInfoEmbed(x, "Recipient", '337333673781100545')
 		x.channel.send(invoice)
-		//x.channel.send(embed1)
-		//x.channel.send(embed2)
 	}
 }
 
-<<<<<<< HEAD
 var payInterest = (x) =>{
 	if(x in accounts){
 		accounts[x] = accounts[x] * 1.03
@@ -371,8 +367,6 @@ var payInterest = (x) =>{
 	}
 }
 
-=======
->>>>>>> 032daa23760ed6e11f635893bef82190895eb639
 var accountEmbed = (x) =>{
 	accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
@@ -407,8 +401,6 @@ var incrementCounter = (x) =>{
 	}
 }
 
-
-
 var checkAndUpdateBalance = (x) =>{
 	var value = counter[x.id]
 	var value2 = interest[x.id]
@@ -418,6 +410,7 @@ var checkAndUpdateBalance = (x) =>{
 			counter[x.id] = 0
 			fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
 			fs.writeFile('plugins/data/counter.json', JSON.stringify(counter, null, 2));
+			return 1
 		}
 	}
 	if(value2 == 200){
@@ -425,6 +418,7 @@ var checkAndUpdateBalance = (x) =>{
 			payInterest(x.id)
 			interest[x.id] = 1
 			fs.writeFile('plugins/data/interest.json', JSON.stringify(interest, null, 2));
+			return 2
 		}
 	}
 }
