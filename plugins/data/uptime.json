@@ -1,5 +1,7 @@
 {
   "secs": 31,
   "mins": 0,
-  "hrs": 0
+  "hrs": 0,
+  "days" : 0,
+  "daysBool" : false
 }

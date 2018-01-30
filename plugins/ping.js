@@ -24,15 +24,27 @@ var getUptime = (x) =>{
 	return uptime_
 }
 var ping = (x) =>{
-	x.reply("I'm here! Here's some info...")
-	uptime_ = getUptime(x)
-	ping = bot.pings[0]
-	embed = new discord.RichEmbed()
-	embed.setTitle('Bot Info')
-	embed.setColor('ORANGE')
-	embed.addField('Ping', ping + ' ms')
-	embed.addField('Current Machine', info["machine"])
-	embed.addField('Uptime', main.getUptime(x))
+	if(uptime["daysBool"]){
+		x.reply("I'm here! Here's some info...")
+		uptime_ = getUptime(x)
+		ping = bot.pings[0]
+		embed = new discord.RichEmbed()
+		embed.setTitle('Bot Info')
+		embed.setColor('ORANGE')
+		embed.addField('Ping', ping + ' ms')
+		embed.addField('Current Machine', info["machine"])
+		embed.addField('Uptime', uptime["days"] + ' days ' + main.getUptime(x))
+	}else{
+		x.reply("I'm here! Here's some info...")
+		uptime_ = getUptime(x)
+		ping = bot.pings[0]
+		embed = new discord.RichEmbed()
+		embed.setTitle('Bot Info')
+		embed.setColor('ORANGE')
+		embed.addField('Ping', ping + ' ms')
+		embed.addField('Current Machine', info["machine"])
+		embed.addField('Uptime', main.getUptime(x))
+	}
 	x.channel.sendEmbed(embed)
 }
 

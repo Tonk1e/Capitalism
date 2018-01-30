@@ -21,6 +21,11 @@ var incrementSecs = () =>{
 		uptime["mins"] = 0
 		uptime["hrs"] = uptime["hrs"] + 1
 	}
+	if(uptime["hrs"] == 24){
+		uptime["hrs"] = 0
+		uptime["days"] = uptime["days"] + 1
+		uptime["daysBool"] = true
+	}
 	uptime["secs"] = uptime["secs"] + 1
 	fs.writeFile('plugins/data/uptime.json', JSON.stringify(uptime, null, 2));
 }
@@ -83,6 +88,8 @@ bot.on('ready', () =>{
 	uptime["secs"] = 0
 	uptime["mins"] = 0
 	uptime["hrs"] = 0
+	uptime["days"] = 0
+	uptime["daysBool"] = false
 	fs.writeFile('plugins/data/uptime.json', JSON.stringify(uptime, null, 2));
 	setInterval(incrementSecs, 1000)
 });
