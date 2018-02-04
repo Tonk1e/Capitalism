@@ -6,7 +6,7 @@ const bot = mainClass.bot
 // other requirements
 var main = require('../main.js')
 fs = require('fs')
-const uptimeFile = fs.readFileSync('plugins/data/uptime.json')
+var uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
 const infoFile = fs.readFileSync('info.json')
 var info = JSON.parse(infoFile)
@@ -24,7 +24,7 @@ var getUptime = (x) =>{
 	return uptime_
 }
 var ping = (x) =>{
-	if(uptime["daysBool"]){
+	if(uptime["daysBool"] == true){
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]

@@ -123,6 +123,15 @@ var query = (x, y) =>{
 			if(x.author.id == '292556142952054794'){
 				bot.destroy()
 			}
+			break
+		}
+		case '/reset':{
+			money.economyReset(x)
+			break
+		}
+		case '/shop':{
+			shop.shopEmbed(x)
+			break
 		}
 		default:{
 			break

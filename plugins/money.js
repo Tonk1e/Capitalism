@@ -355,6 +355,7 @@ var createInvoice = (x, y, date, amount) =>{
 		invoice.addField("Recipient ID", '337333673781100545')
 		x.channel.send(invoice)
 	}
+	fs.writeFile('plugins/data/invoices.json', JSON.stringify(invoices, null, 2));
 }
 
 var payInterest = (x) =>{
@@ -472,15 +473,45 @@ var processTransferRequest = (x, y, account1, account2, amount) =>{
 	x.channel.send(transfer_)
 }
 
+var economyReset = (x) =>{
+	for(member in x.guild.members){
+		if(member.id in wages){
+			wages[member.id] = 0
+		}
+		if(member.id in accounts){
+			accounts[member.id] = 0
+		}
+		fs.writeFile('plugins/data/wages.json', JSON.stringify(wages, null, 2));
+		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
+		x.channel.send("**The Economy for this server has been __reset__")
+	}
+}
+
 class shop{
 	constructor(){
 		this.vipList = [1, 250, "Get added to the VIP list."]
+		this.items = [this.vipList]
 		this.buy = (itemID, id) =>{
 			if(id in accounts){
-				if((accounts[id] - itemID[1]) >= 0){
-					accounts[id] = accounts[id] - itemID[1]
+				for(item in this.items){
+					if(item[0] == itemID){
+						if((accounts[id] - item[1]) >= 0){
+							accounts[id]
+						}
+					}
 				}
 			}
+		}
+		this.shopEmbed = (x) =>{
+			var shopEmbed = new discord.RichEmbed()
+			shopEmbed.setTitle("Shop")
+			shopEmbed.setColor('ORANGE')
+			var i;
+			for(i=0;i<this.items.length;i++){
+				var desc = this.items[i][2] + ' Price: ' + this.items[i][1] + ' USD.'
+				shopEmbed.addField(this.items[i][0], desc)
+			}
+			x.channel.send(shopEmbed)
 		}
 	}
 
@@ -498,3 +529,4 @@ module.exports.accountEmbed = accountEmbed
 module.exports.returnCounterEmbed = returnCounterEmbed
 module.exports.returnID = returnID
 module.exports.createInvoice = createInvoice
+module.exports.economyReset = economyReset

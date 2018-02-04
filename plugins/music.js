@@ -12,10 +12,17 @@ const ytdl = require('ytdl-core')
 
 
 // main
+Array.prototype.randomElement = function () {
+    return this[Math.floor(Math.random() * this.length)]
+}
+
 var jazz = (channel, message) =>{
 	channel.join()
 		.then(connection => {
-    		const dispatcher = connection.playFile('plugins/music/jazz.mp3');
+				var jazzPointers = ['plugins/music/jazz/jazz.mp3']
+				console.log(jazzPointers.randomElement())
+				var jazzFile = jazzPointers.randomElement()
+    		const dispatcher = connection.playFile(jazzFile);
     		dispatcher.setVolume(0.5)
     		dispatcher.on('error', e => {
 	    		channel.send(e)
@@ -41,10 +48,10 @@ var getYoutubeURL = (x, y) =>{
 	  maxResults: 1,
 	  key: secrets["GOOGLE_API_KEY"]
 	}
-	
+
 	search("joji thom 5 hours", opts, function(err, results) {
 		if(err) return console.log(err);
-	 
+
 		var results_ = JSON.stringify(results)
 		console.log(results_[1])
 	});
