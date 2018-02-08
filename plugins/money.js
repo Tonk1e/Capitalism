@@ -19,6 +19,8 @@ const invoiceFile = fs.readFileSync('plugins/data/invoices.json')
 var invoices = JSON.parse(invoiceFile)
 const interestFile = fs.readFileSync('plugins/data/interest.json')
 var interest = JSON.parse(interestFile)
+const gamePassFile = fs.readFileSync('plugins/data/gamePass.json')
+var gamePass = JSON.parse(gamePassFile)
 
 
 // main
@@ -351,9 +353,10 @@ var createInvoice = (x, y, date, amount) =>{
 		invoice.setColor('ORANGE')
 		invoice.addField("Billing Agreement Date", date)
 		invoice.addField("Transaction Amount", amount + " USD")
-		invoice.addField("Payer ID", '292556142952054794')
-		invoice.addField("Recipient ID", '337333673781100545')
-		x.channel.send(invoice)
+		invoice.addField("Payer ID", x.author.id)
+		invoice.addField("Recipient ID", y)
+		x.channel.send("The invoice was sent in your DMs.")
+		x.author.send(invoice)
 	}
 	fs.writeFile('plugins/data/invoices.json', JSON.stringify(invoices, null, 2));
 }
@@ -483,23 +486,42 @@ var economyReset = (x) =>{
 		}
 		fs.writeFile('plugins/data/wages.json', JSON.stringify(wages, null, 2));
 		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
-		x.channel.send("**The Economy for this server has been __reset__")
+		x.channel.send("**The Economy for this server has been __reset__**")
 	}
 }
 
 class shop{
 	constructor(){
-		this.vipList = [1, 250, "Get added to the VIP list."]
-		this.items = [this.vipList]
-		this.buy = (itemID, id) =>{
+		this.vipList = [1, 500, "Get added to the VIP list."]
+		this.gamePass = [2, 50, "Get one pass to play a game."]
+		this.items = [this.vipList, this.gamePass]
+		this.buy = (x, itemID, id) =>{
+			console.log(itemID + 1)
 			if(id in accounts){
-				for(item in this.items){
-					if(item[0] == itemID){
-						if((accounts[id] - item[1]) >= 0){
-							accounts[id]
+				var i;
+				for(i=0;i<this.items.length;i++){
+					console.log(this.items[i])
+					if(this.items[i][0] == itemID){
+						if((accounts[id] - this.items[i][1]) >= 0){
+							if(itemID == 2){
+								if(id in gamePass){
+									gamePass[id] = gamePass[id] + 1
+								}else{
+									gamePass[id] = 1
+								}
+								fs.writeFile('plugins/data/gamePass.json', JSON.stringify(gamePass, null, 2))
+							}
+							accounts[id] = accounts[id] - this.items[i][1]
+							createInvoice(x, '292556142952054794', new Date(), this.items[i][1])
+							fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
+							return "The purchase was successful."
+						}else{
+							return "You do not have sufficient funds to complete the purchase."
 						}
 					}
 				}
+			}else{
+				return "You do not have an account."
 			}
 		}
 		this.shopEmbed = (x) =>{
@@ -514,7 +536,6 @@ class shop{
 			x.channel.send(shopEmbed)
 		}
 	}
-
 }
 
 module.exports.shop = shop

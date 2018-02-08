@@ -13,6 +13,7 @@ const userInfo = require('./plugins/userInfo.js')
 const ping = require('./plugins/ping.js')
 const setup = require('./plugins/botSetup.js')
 const random = require('./plugins/random.js')
+const games = require('./plugins/games.js')
 
 
 // other requirements
@@ -49,10 +50,6 @@ var query = (x, y) =>{
 			}else{
 				break
 			}
-			break
-		}
-		case '/play':{
-			music.getYoutubeURL(x, y)
 			break
 		}
 		case '/myself':{
@@ -115,10 +112,6 @@ var query = (x, y) =>{
 			money.returnCounterEmbed(x)
 			break
 		}
-		case '/invoice':{
-			money.createInvoice(x, y, new Date(), 400)
-			break
-		}
 		case '/bye':{
 			if(x.author.id == '292556142952054794'){
 				bot.destroy()
@@ -133,6 +126,10 @@ var query = (x, y) =>{
 			shop.shopEmbed(x)
 			break
 		}
+		case '/pass':{
+			games.passEmbed(x)
+			break
+		}
 		default:{
 			break
 		}
@@ -140,12 +137,13 @@ var query = (x, y) =>{
 	if(y.startsWith('/acc')){
 		money.returnID(x)
 	}
-	if(y.startsWith('/play')){
-		search = y.substr(6)
-		music.getYoutubeURL(x, search)
-	}
 	if(y.startsWith('/copy')){
 		random.copy(x)
+	}
+	if(y.startsWith('/buy')){
+		var itemID = parseInt(y.substr(5))
+		buyFunc = shop.buy(x, itemID, x.author.id)
+		x.reply(buyFunc)
 	}
 }
 

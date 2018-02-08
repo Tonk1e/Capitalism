@@ -5,6 +5,7 @@ const bot = mainClass.bot
 
 // plugins
 const money = require('./plugins/money.js')
+const games = require('./plugins/games.js')
 
 // other requirements
 const query = require('./query.js')
@@ -105,6 +106,9 @@ bot.on('message', (message) => {
 		}
 	}
 	query.query(message, message.content)
+	if(message.content.startsWith('/play')){
+		games.playGame(message)
+	}
 	if(message.content.startsWith('/changewage')){
 		if(message.author.id == '292556142952054794'){
 			id = message.content.substr(12, 18)
