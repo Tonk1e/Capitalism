@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f6a254b6f5934e398fb1852fce0fce40)](https://www.codacy.com/app/Tonk1e/Capitalism?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Tonk1e/Capitalism&amp;utm_campaign=Badge_Grade)
+
 ## Capitalism
 A JavaScript bot written with the discord.js API wrapper.
 
