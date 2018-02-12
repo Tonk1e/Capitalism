@@ -1,7 +1,13 @@
 {
+<<<<<<< HEAD
   "secs": 38,
   "mins": 1,
   "hrs": 0,
+=======
+  "secs": 51,
+  "mins": 25,
+  "hrs": 1,
+>>>>>>> 161c921621299980fa6e5ba9e26521195af732e2
   "days": 0,
   "daysBool": false
 }

@@ -6,13 +6,23 @@ const bot = mainClass.bot
 // plugins
 const money = require('./plugins/money.js')
 const games = require('./plugins/games.js')
+var system = require('./plugins/system.js')
 
 // other requirements
+const fs = require('fs')
 const query = require('./query.js')
+const http = require('http')
+const port1 = 1000
+const port2 = 1500;
 const uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
 
+
 // main
+const requestHandler = (request, response) =>{
+	var system = require('./plugins/system.js')
+	response.end(system.getSysEmbed())
+}
 var incrementSecs = () =>{
 	if(uptime["secs"] == 60){
 		uptime["secs"] = 0
