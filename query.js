@@ -14,7 +14,9 @@ const ping = require('./plugins/ping.js')
 const setup = require('./plugins/botSetup.js')
 const random = require('./plugins/random.js')
 const games = require('./plugins/games.js')
-
+const yt = require('./plugins/youtube.js')
+const pc = require('./plugins/computing.js')
+const politics = require('./plugins/politics.js')
 
 // other requirements
 const fs = require('fs')
@@ -130,9 +132,42 @@ var query = (x, y) =>{
 			games.passEmbed(x)
 			break
 		}
+		case '/politics':{
+			politics.beliefEmbed(x)
+			break
+		}
+		case '/beliefs':{
+			politics.beliefsEmbed(x)
+			break
+		}
+		case '/parties':{
+			politics.partiesEmbed(x)
+			break
+		}
+		case '/referendum':{
+			politics.startReferendum(x)
+			break
+		}
 		default:{
 			break
 		}
+	}
+	if(y.startsWith('/belief') && y != "/beliefs"){
+		belief = y.substr(8)
+		console.log(belief)
+		politics.updateBelief(x, x.author.id, belief)
+	}
+	if(y.startsWith('/party')){
+		party = y.substr(7)
+		console.log(party)
+		politics.updateParty(x, x.author.id, party)
+	}
+	if(y.startsWith('/pc')){
+		console.log("yay.")
+		pc.main(x)
+	}
+	if(y.startsWith('/vidinfo')){
+		yt.videoEmbed(x)
 	}
 	if(y.startsWith('/acc')){
 		money.returnID(x)

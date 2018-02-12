@@ -22,7 +22,6 @@ var interest = JSON.parse(interestFile)
 const gamePassFile = fs.readFileSync('plugins/data/gamePass.json')
 var gamePass = JSON.parse(gamePassFile)
 
-
 // main
 var getWage = (id) =>{
 	if(id in wages){

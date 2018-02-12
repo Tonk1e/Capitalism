@@ -26,46 +26,45 @@ var playGame = (x) =>{
   var gamePass = JSON.parse(gamePassFile)
   if(x.author.id in gamePass){
     if((gamePass[x.author.id] - 1) >= 0){
+      var games = [1]
+      var i = games[Math.floor(Math.random()*games.length)]
       gamePass[x.author.id] = gamePass[x.author.id] - 1
       fs.writeFile('plugins/data/gamePass.json', JSON.stringify(gamePass, null, 2))
-      playGame(x)
-    }else{
-      x.reply("You do not have a game pass. Please buy one at the /shop.")
-    }
-  }else{
-    x.reply("You do not have a game pass. Please buy one at the /shop.")
-  }
-  var games = [1]
-  var i = games[Math.floor(Math.random()*games.length)]
-  switch(i){
-    case 1:{
-      x.reply("The game has begun.")
-      var cases = [1]
-      var y = cases[Math.floor(Math.random()*cases.length)]
-      switch(y){
+      switch(i){
         case 1:{
-          x.reply("An armored warrior approaches you, holding a blade.")
-          var cases1 = [1]
-          var u = cases1[Math.floor(Math.random()*cases1.length)]
-          switch(u){
+          x.reply("The game has begun.")
+          var cases = [1]
+          var y = cases[Math.floor(Math.random()*cases.length)]
+          switch(y){
             case 1:{
-              x.reply("You grab your sword and swing.")
-              var cases2 = [1]
-              var z = cases2[Math.floor(Math.random()*cases2.length)]
-              switch(z){
+              x.reply("An armored warrior approaches you, holding a blade.")
+              var cases1 = [1]
+              var u = cases1[Math.floor(Math.random()*cases1.length)]
+              switch(u){
                 case 1:{
-                  x.reply("Your opponent blocked your attack and decapitated you.")
-                  x.reply("You lose.")
-                }
-                case 2:{
+                  x.reply("You grab your sword and swing.")
+                  var cases2 = [1]
+                  var z = cases2[Math.floor(Math.random()*cases2.length)]
+                  switch(z){
+                    case 1:{
+                      x.reply("Your opponent blocked your attack and decapitated you.")
+                      x.reply("You lose.")
+                    }
+                    case 2:{
 
+                    }
+                  }
                 }
               }
             }
           }
         }
       }
+    }else{
+      x.reply("You do not have a game pass. Please buy one at the /shop.")
     }
+  }else{
+    x.reply("You do not have a game pass. Please buy one at the /shop.")
   }
 }
 
