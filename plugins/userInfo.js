@@ -29,7 +29,11 @@ var getUserEmbed = (user) =>{
 }
 
 var incrementCommandUse = (id) =>{
-	commands[id] += 1
+	if(id in commands){
+		commands[id] += 1
+	}else{
+		 commands[id] = 1
+	}
 	fs.writeFile('./plugins/data/commands.json', JSON.stringify(commands, null, 2))
 }
 
