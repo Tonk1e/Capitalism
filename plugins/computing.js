@@ -5,12 +5,7 @@ const bot = mainClass.bot
 
 // other requirements
 const fs = require('fs')
-const ramInfoFile = fs.readFileSync('plugins/data/computing/ram.json')
-var ramInfo = JSON.parse(ramInfoFile)
-const hddInfoFile = fs.readFileSync('plugins/data/computing/hdd.json')
-var hddInfo = JSON.parse(hddInfoFile)
-const cpuInfoFile = fs.readFileSync('plugins/data/computing/cpu.json')
-var cpuInfo = JSON.parse(cpuInfoFile)
+var computing = JSON.parse(fs.readFileSync('plugins/data/computing.json'))
 
 // main
 var ram = (x) =>{
@@ -18,7 +13,7 @@ var ram = (x) =>{
   console.log(ramInfo)
   ramEmbed.setTitle("RAM")
   ramEmbed.setColor('ORANGE')
-  ramEmbed.setDescription(ramInfo["info"])
+  ramEmbed.setDescription(computing["ram"])
   x.channel.send(ramEmbed)
 }
 
@@ -27,7 +22,7 @@ var hdd = (x) =>{
   console.log(hddInfo)
   hddEmbed.setTitle("Hard Drive")
   hddEmbed.setColor('ORANGE')
-  hddEmbed.setDescription(hddInfo["info"])
+  hddEmbed.setDescription(computing["hdd"])
   x.channel.send(hddEmbed)
 }
 
@@ -36,7 +31,7 @@ var cpu = (x) =>{
   console.log(cpuInfo)
   cpuEmbed.setTitle("CPU")
   cpuEmbed.setColor('ORANGE')
-  cpuEmbed.setDescription(cpuInfo["info"])
+  cpuEmbed.setDescription(computing["cpu"])
   x.channel.send(cpuEmbed)
 }
 
