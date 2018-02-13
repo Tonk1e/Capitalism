@@ -177,6 +177,11 @@ var query = (x, y) =>{
 			politics.startReferendum(x)
 			break
 		}
+		case '/card':{
+			card = userInfo.createProfileCard(x)
+			x.channel.send(card)
+			break
+		}
 		default:{
 			break
 		}

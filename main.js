@@ -7,6 +7,7 @@ const bot = mainClass.bot
 const money = require('./plugins/money.js')
 const games = require('./plugins/games.js')
 var system = require('./plugins/system.js')
+const userInfo = require('./plugins/userInfo.js')
 
 // other requirements
 const fs = require('fs')
@@ -105,6 +106,7 @@ bot.on('ready', () =>{
 	setInterval(incrementSecs, 1000)
 });
 bot.on('message', (message) => {
+	userInfo.createProfileCard(message)
 	money.incrementCounter(message.author)
 	var check = money.checkAndUpdateBalance(message.author)
 	switch(check){
