@@ -7,6 +7,10 @@ const bot = mainClass.bot
 const fs = require('fs')
 const wagesFile = fs.readFileSync('plugins/data/wages.json')
 const wages = JSON.parse(wagesFile)
+var commandsFile = fs.readFileSync('./plugins/data/commands.json')
+var commands = JSON.parse(commandsFile)
+var profilesFile = fs.readFileSync('./plugins/data/profiles.json')
+var profiles = JSON.parse(profilesFile)
 
 // main
 var getUserEmbed = (user) =>{
@@ -22,6 +26,22 @@ var getUserEmbed = (user) =>{
 	userEmbed.addField('Bot', user.bot)
 	userEmbed.addField('Status', user.presence)
 	return userEmbed
+}
+
+var createProfileCard = (x) =>{
+	var commandsFile = fs.readFileSync('./plugins/data/commands.json')
+	var commands = JSON.parse(commandsFile)
+	var profileCard = new discord.RichEmbed()
+	profileCard.setTitle(x.author.username + "'s Profile Card")
+	profileCard.setColor('ORANGE')
+	profileCard.setThumbnail(x.author.avatarURL)
+	profileCard.addField("ID", x.author.id)
+	profileCard.addField("Commands Run", commands[x.author.id])
+	profileCard.addField("Last Message", x.author.lastMessage)
+	profileCard.addField("Created At", x.author.createdAt)
+	profiles[x.author.id] = profileCard
+	fs.writeFile('plugins/data/profiles.json', JSON.stringify(profiles), null, 2)
+	return profileCard
 }
 
 var getUserAvatar = (x) =>{
