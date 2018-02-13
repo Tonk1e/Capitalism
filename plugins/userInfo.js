@@ -38,13 +38,11 @@ var incrementCommandUse = (id) =>{
 }
 
 var createProfileCard = (x) =>{
-	incrementCommandUse(x.author.id)
 	var profileCard = new discord.RichEmbed()
 	profileCard.setTitle(x.author.username + "'s Profile Card")
 	profileCard.setColor('ORANGE')
 	profileCard.setThumbnail(x.author.avatarURL)
 	profileCard.addField("ID", x.author.id)
-	profileCard.addField("Commands Run", commands[x.author.id])
 	profileCard.addField("Last Message", x.author.lastMessage)
 	profileCard.addField("Created At", x.author.createdAt)
 	profiles[x.author.id] = profileCard

@@ -106,7 +106,6 @@ bot.on('ready', () =>{
 	setInterval(incrementSecs, 1000)
 });
 bot.on('message', (message) => {
-	userInfo.createProfileCard(message)
 	money.incrementCounter(message.author)
 	var check = money.checkAndUpdateBalance(message.author)
 	switch(check){
