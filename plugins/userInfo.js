@@ -34,13 +34,11 @@ var incrementCommandUse = (id) =>{
 	}else{
 		 commands[id] = 1
 	}
-	fs.writeFile('./plugins/data/commands.json', JSON.stringify(commands, null, 2))
+	fs.writeFile('plugins/data/commands.json', JSON.stringify(commands, null, 2))
 }
 
 var createProfileCard = (x) =>{
 	incrementCommandUse(x.author.id)
-	var commandsFile = fs.readFileSync('./plugins/data/commands.json')
-	var commands = JSON.parse(commandsFile)
 	var profileCard = new discord.RichEmbed()
 	profileCard.setTitle(x.author.username + "'s Profile Card")
 	profileCard.setColor('ORANGE')
