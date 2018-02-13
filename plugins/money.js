@@ -510,7 +510,7 @@ class shop{
 								}
 								fs.writeFile('plugins/data/gamePass.json', JSON.stringify(gamePass, null, 2))
 							}
-							accounts[id] = accounts[id] - this.items[i][1]
+							transfer(id, '292556142952054794', this.items[i][1])
 							createInvoice(x, '292556142952054794', new Date(), this.items[i][1])
 							fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
 							return "The purchase was successful."
