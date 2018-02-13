@@ -50,6 +50,18 @@ var createProfileCard = (x) =>{
 	return profileCard
 }
 
+var commandsRun = (x) =>{
+	var commandsFile = fs.readFileSync('./plugins/data/commands.json')
+	var commands = JSON.parse(commandsFile)
+	var commandsRun_ = commands[x.author.id]
+	var commandsRunEmbed = new discord.RichEmbed();
+	commandsRunEmbed.setTitle(x.author.username)
+	commandsRunEmbed.setColor('ORANGE')
+	commandsRunEmbed.setThumbnail(x.author.avatarURL)
+	commandsRunEmbed.addField('Commands Run', commands[x.author.id])
+	x.channel.send(commandsRunEmbed)
+}
+
 var getUserAvatar = (x) =>{
 	avatar = x.avatarURL
 	return avatar
@@ -63,3 +75,4 @@ var sendUserAvatar = (x) =>{
 module.exports.getUserEmbed = getUserEmbed
 module.exports.sendUserAvatar = sendUserAvatar
 module.exports.createProfileCard = createProfileCard
+module.exports.commandsRun = commandsRun

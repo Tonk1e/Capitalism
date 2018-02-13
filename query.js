@@ -182,6 +182,10 @@ var query = (x, y) =>{
 			x.channel.send(card)
 			break
 		}
+		case '/run':{
+			userInfo.commandsRun(x)
+			break
+		}
 		default:{
 			break
 		}
