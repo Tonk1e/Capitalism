@@ -56,3 +56,4 @@ var sendUserAvatar = (x) =>{
 
 module.exports.getUserEmbed = getUserEmbed
 module.exports.sendUserAvatar = sendUserAvatar
+module.exports.createProfileCard = createProfileCard
