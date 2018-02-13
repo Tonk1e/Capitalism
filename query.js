@@ -183,6 +183,7 @@ var query = (x, y) =>{
 			break
 		}
 		case '/run':{
+			incrementCommandUse(x.author.id)
 			userInfo.commandsRun(x)
 			break
 		}
