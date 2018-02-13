@@ -11,7 +11,7 @@ const employersFile = fs.readFileSync('plugins/data/employers.json')
 var employers = JSON.parse(employersFile)
 const userEmployersFile = fs.readFileSync('plugins/data/userEmployers.json')
 var userEmployers = JSON.parse(userEmployersFile)
-const accountsFile = fs.readFileSync('plugins/data/accounts.json')
+var accountsFile = fs.readFileSync('plugins/data/accounts.json')
 var accounts = JSON.parse(accountsFile)
 const counterFile = fs.readFileSync('plugins/data/counter.json')
 var counter = JSON.parse(counterFile)
@@ -371,7 +371,9 @@ var payInterest = (x) =>{
 }
 
 var accountEmbed = (x) =>{
-	accEmbed = new discord.RichEmbed()
+	var accountsFile = fs.readFileSync('plugins/data/accounts.json')
+	var accounts = JSON.parse(accountsFile)
+	var accEmbed = new discord.RichEmbed()
 	accEmbed.setTitle(x.username)
 	accEmbed.setThumbnail(x.avatarURL)
 	accEmbed.setColor('ORANGE')
@@ -444,8 +446,9 @@ var returnCounterEmbed = (x) =>{
 
 var transfer = (account1, account2, amount) =>{
 	if((account1 - amount) >= 0){
-		account1 = account1 - amount
-		account2 = account2 + amount
+		accounts[account1] -= amount
+		accounts[account2] += amount
+		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
 		return "The transfer was successful."
 	}else{
 		return "There was not sufficient funds in the account."
