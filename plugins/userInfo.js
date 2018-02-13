@@ -51,14 +51,13 @@ var createProfileCard = (x) =>{
 }
 
 var commandsRun = (x) =>{
-	var commandsFile = fs.readFileSync('./plugins/data/commands.json')
-	var commands = JSON.parse(commandsFile)
+	incrementCommandUse(x.author.id)
 	var commandsRun_ = commands[x.author.id]
 	var commandsRunEmbed = new discord.RichEmbed();
 	commandsRunEmbed.setTitle(x.author.username)
 	commandsRunEmbed.setColor('ORANGE')
 	commandsRunEmbed.setThumbnail(x.author.avatarURL)
-	commandsRunEmbed.addField('Commands Run', commands[x.author.id])
+	commandsRunEmbed.addField('Commands Run', commandsRun_)
 	x.channel.send(commandsRunEmbed)
 }
 
