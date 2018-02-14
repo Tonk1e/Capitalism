@@ -194,7 +194,7 @@ var query = (x, y) =>{
 	if(y.startsWith('/transfer')){
 		var id = y.substr(11, 28)
 		var amount = y.substr(30)
-		var transfer = transfer(x.author.id, id, amount)
+		var transfer = money.transfer(x.author.id, id, amount)
 		x.reply(transfer)
 	}
 	if(y.startsWith('/belief') && y != "/beliefs"){
