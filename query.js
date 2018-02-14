@@ -191,6 +191,12 @@ var query = (x, y) =>{
 			break
 		}
 	}
+	if(y.startsWith('/transfer')){
+		var id = y.substr(11, 28)
+		var amount = y.substr(30)
+		var transfer = transfer(x.author.id, id, amount)
+		x.reply(transfer)
+	}
 	if(y.startsWith('/belief') && y != "/beliefs"){
 		incrementCommandUse(x.author.id)
 		belief = y.substr(8)

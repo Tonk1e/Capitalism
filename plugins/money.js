@@ -553,3 +553,4 @@ module.exports.returnCounterEmbed = returnCounterEmbed
 module.exports.returnID = returnID
 module.exports.createInvoice = createInvoice
 module.exports.economyReset = economyReset
+module.exports.transfer = transfer
