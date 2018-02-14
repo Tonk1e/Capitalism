@@ -445,7 +445,7 @@ var returnCounterEmbed = (x) =>{
 }
 
 var transfer = (account1, account2, amount) =>{
-	if((account1 - amount) >= 0){
+	if((accounts[account1] - amount) >= 0){
 		accounts[account1] -= amount
 		accounts[account2] += amount
 		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
