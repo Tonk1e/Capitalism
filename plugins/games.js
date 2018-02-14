@@ -7,6 +7,8 @@ const bot = mainClass.bot
 const fs = require('fs')
 var gamePassFile = fs.readFileSync('plugins/data/gamePass.json')
 var gamePass = JSON.parse(gamePassFile)
+var accountsFile = fs.readFileSync('plugins/data/accounts.json')
+var accounts = JSON.parse(accountsFile)
 
 // main
 var passEmbed = (x) =>{
@@ -43,7 +45,7 @@ var playGame = (x) =>{
               switch(u){
                 case 1:{
                   x.reply("You grab your sword and swing.")
-                  var cases2 = [1]
+                  var cases2 = [1, 2]
                   var z = cases2[Math.floor(Math.random()*cases2.length)]
                   switch(z){
                     case 1:{
@@ -51,7 +53,10 @@ var playGame = (x) =>{
                       x.reply("You lose.")
                     }
                     case 2:{
-
+                      x.reply("You slash through the warriors neck.")
+                      x.reply("He dropped 10 USD, and you picked it up.")
+                      accounts[x.author.id] += 10
+                      fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
                     }
                   }
                 }
