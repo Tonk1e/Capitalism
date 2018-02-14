@@ -51,12 +51,14 @@ var playGame = (x) =>{
                     case 1:{
                       x.reply("Your opponent blocked your attack and decapitated you.")
                       x.reply("You lose.")
+                      break
                     }
                     case 2:{
                       x.reply("You slash through the warriors neck.")
                       x.reply("He dropped 10 USD, and you picked it up.")
                       accounts[x.author.id] += 10
                       fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2))
+                      break
                     }
                   }
                 }
