@@ -11,7 +11,7 @@ class System{
 	constructor(){
 		this.cpuArray = os.cpus()
 		this.cpuModel = this.cpuArray[0].model
-		this.cpuArchitecture = os.arch()
+		this.cpuArchi\tecture = os.arch()
 		this.cpuSpeed = this.cpuArray[0].speed / 1000
 		this.freeMemB = os.freemem()
 		this.freeMemGB = Math.floor(os.freemem()/1073741824)
