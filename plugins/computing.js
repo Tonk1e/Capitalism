@@ -7,10 +7,17 @@ const bot = mainClass.bot
 const fs = require('fs')
 var computing = JSON.parse(fs.readFileSync('plugins/data/computing.json'))
 
-var parts = ["ram", "hdd", "cpu", "ssd"]
-var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives"]
+var parts = ["ram", "hdd", "cpu", "ssd", "motherboard"]
+var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards."]
 
 // main
+var motherboard = (x) =>{
+  var motherboardEmbed = new discord.RichEmbed()
+  motherboardEmbed.setTitle("Motherboard")
+  motherboardEmbed.setColor('ORANGE')
+  motherboardEmbed.setDescription(computing["motherboard"])
+  x.channel.send(motherboardEmbed)
+}
 var ssd = (x) =>{
   var ssdEmbed = new discord.RichEmbed()
   ssdEmbed.setTitle("Solid State Drive")
@@ -60,6 +67,10 @@ var main = (x) =>{
   switch(query){
     case 'help':{
       help(x)
+      break
+    }
+    case 'motherboard':{
+      motherboard(x)
       break
     }
     case 'ssd':{
