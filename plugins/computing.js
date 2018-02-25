@@ -7,8 +7,8 @@ const bot = mainClass.bot
 const fs = require('fs')
 var computing = JSON.parse(fs.readFileSync('plugins/data/computing.json'))
 
-var parts = ["ram", "hdd", "cpu", "ssd", "motherboard"]
-var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards."]
+var parts = ["ram", "hdd", "cpu", "ssd", "mobo"]
+var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards"]
 
 // main
 var motherboard = (x) =>{
@@ -69,7 +69,7 @@ var main = (x) =>{
       help(x)
       break
     }
-    case 'motherboard':{
+    case 'mobo':{
       motherboard(x)
       break
     }
