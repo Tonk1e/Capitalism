@@ -16,7 +16,7 @@ var returnInstrumentData = (x, inst) =>{
 		"ripple" : "https://dontpanicsell.files.wordpress.com/2017/06/mark.png?w=768",
 		"bitcoin-cash" : "https://i.warosu.org/data/biz/img/0043/89/1510809334515.png"
 	}
-	url = "http://api.coinmarketcap.com/v1/ticker/" + inst
+	url = "http://api.coinmarketcap.com/v1/ticker/" + inst 
 	request({url: url, json: true}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
@@ -52,6 +52,11 @@ var getInstrument = (x, inst) =>{
 			returnInstrumentData(x, 'bitcoin-cash')
 			break
 		}
+		case 'doge':{
+			returnInstrumentData(x, 'dogecoin')
+			break
+		}
+		case ''
 	}
 }
 
