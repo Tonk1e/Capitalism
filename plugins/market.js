@@ -11,6 +11,7 @@ var http = require('http')
 var returnInstrumentData = (x, inst) =>{
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst
 	http.get(url, function(res){
+		console.log(res)
 		data = JSON.parse(res)
 		instEmbed = new dicord.RichEmbed()
 		instEmbed.setTitle(data["name"] + ' Information')
