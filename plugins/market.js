@@ -53,6 +53,7 @@ var returnInstrumentData = (x, inst) =>{
 }
 
 var returnMarkets = (x) =>{
+	console.log("Yay.")
 	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
 	var i
 	for(i=0;i<symbolFuncs;i++){
