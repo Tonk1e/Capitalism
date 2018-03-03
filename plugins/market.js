@@ -58,7 +58,7 @@ var returnMarkets = (x) =>{
 	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
 	var i
 	for(inst in symbolFuncs){
-		returnInstrumentData(x, inst.toLowerCase())
+		returnInstrumentData(x, inst)
 	}
 }
 
