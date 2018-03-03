@@ -189,7 +189,7 @@ var query = (x, y) =>{
 			break
 		}
 		case '/markets':{
-			markets.returnMarkets(x)
+			market.returnMarkets(x)
 			break
 		}
 		default:{
