@@ -55,10 +55,10 @@ var returnInstrumentData = (x, inst) =>{
 
 var returnMarkets = (x) =>{
 	console.log("Yay.")
-	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
+	symbolFuncs = ['bitcoin', 'ethereum', 'ripple', 'bitcoin-cash', 'dogecoin', 'litecoin', 'neo']
 	var i
 	for(inst in symbolFuncs){
-		returnInstrumentData(x, symbolFuncs[inst].toLowerCase())
+		returnInstrumentData(x, symbolFuncs[inst])
 	}
 }
 
