@@ -9,6 +9,19 @@ var http = require('http')
 var request = require('request')
 
 // main
+var stockHelp = (x) =>{
+	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge']
+	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin']
+	var i
+	helpEmbed = new discord.RichEmbed()
+	helpEmbed.setTitle('Stocks Help')
+	helpEmbed.setColor('ORANGE')
+	helpEmbed.setDescription("The stocks command is for returning information about different markets. Following is a list of commands that can be used.")
+	for(i=0;i<symbols.length;i++){
+		helpEmbed.addField('/stock' + symbols[i], "Returns market information about " + symbolFuncs + ".")
+	}
+	x.channel.send(helpEmbed)
+}
 var returnInstrumentData = (x, inst) =>{
 	instImg = {
 		"bitcoin" : bot.user.avatarURL,
@@ -38,6 +51,10 @@ var returnInstrumentData = (x, inst) =>{
 
 var getInstrument = (x, inst) =>{
 	switch(inst){
+		case 'help':{
+			stockHelp(x)
+			break
+		}
 		case 'btc':{
 			returnInstrumentData(x, 'bitcoin')
 			break
@@ -56,6 +73,10 @@ var getInstrument = (x, inst) =>{
 		}
 		case 'doge':{
 			returnInstrumentData(x, 'dogecoin')
+			break
+		}
+		default:{
+			x.channel.send("That symbol does not have a stocks db entry. Please use `/stock help` for a list of commands.")
 			break
 		}
 	}
