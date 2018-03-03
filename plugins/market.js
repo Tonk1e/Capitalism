@@ -56,7 +56,6 @@ var getInstrument = (x, inst) =>{
 			returnInstrumentData(x, 'dogecoin')
 			break
 		}
-		case ''
 	}
 }
 
