@@ -6,18 +6,17 @@ const bot = mainClass.bot
 // other requirements
 const fs = require('fs')
 var http = require('http')
+var request = require('request')
 
 // main
 var returnInstrumentData = (x, inst) =>{
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst
-	http.get(url, function(res){
-		console.log(res)
-		data = JSON.parse(res)
-		instEmbed = new dicord.RichEmbed()
-		instEmbed.setTitle(data["name"] + ' Information')
-		x.channel.send(instEmbed)
+	request({url: url, json: true}, function (error, response, body) {
+
+	    if (!error && response.statusCode === 200) {
+	        console.log(body) // Print the json response
+	    }
 	})
-}
 
 var getInstrument = (x, inst) =>{
 	switch(inst){
