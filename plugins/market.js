@@ -17,6 +17,7 @@ var returnInstrumentData = (x, inst) =>{
 	        console.log(body) // Print the json response
 	    }
 	})
+}
 
 var getInstrument = (x, inst) =>{
 	switch(inst){
