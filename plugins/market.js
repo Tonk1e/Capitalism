@@ -23,6 +23,7 @@ var stockHelp = (x) =>{
 	x.channel.send(helpEmbed)
 }
 var returnInstrumentData = (x, inst) =>{
+	console.log("Yay.")
 	instImg = {
 		"bitcoin" : bot.user.avatarURL,
 		"ethereum" : "https://i0.wp.com/www.easycryptopacks.com/wp-content/uploads/2017/10/ETHEREUM-LOGO-2.png?fit=1920%2C1920&ssl=1",
