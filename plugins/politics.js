@@ -184,6 +184,7 @@ var memberCounter = (array) =>{
   }
   return x
 }
+
 var valueCounter = (array) =>{
   var i
   var x

@@ -24,6 +24,7 @@ const requestHandler = (request, response) =>{
 	var system = require('./plugins/system.js')
 	response.end(system.getSysEmbed())
 }
+
 var incrementSecs = () =>{
 	if(uptime["secs"] == 60){
 		uptime["secs"] = 0

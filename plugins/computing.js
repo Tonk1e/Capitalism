@@ -18,6 +18,7 @@ var motherboard = (x) =>{
   motherboardEmbed.setDescription(computing["motherboard"])
   x.channel.send(motherboardEmbed)
 }
+
 var ssd = (x) =>{
   var ssdEmbed = new discord.RichEmbed()
   ssdEmbed.setTitle("Solid State Drive")

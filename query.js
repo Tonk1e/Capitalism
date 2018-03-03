@@ -17,6 +17,7 @@ const games = require('./plugins/games.js')
 const yt = require('./plugins/youtube.js')
 const pc = require('./plugins/computing.js')
 const politics = require('./plugins/politics.js')
+const market = require('./plugins/market.js')
 
 // other requirements
 const fs = require('fs')
@@ -231,6 +232,10 @@ var query = (x, y) =>{
 		var itemID = parseInt(y.substr(5))
 		buyFunc = shop.buy(x, itemID, x.author.id)
 		x.reply(buyFunc)
+	}
+	if(y.startsWith('/stock')){
+		inst = y.substr(7)
+		market.getInstrument(x, inst)
 	}
 }
 
