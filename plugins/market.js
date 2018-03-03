@@ -51,6 +51,14 @@ var returnInstrumentData = (x, inst) =>{
 	})
 }
 
+var returnMarkets = (x) =>{
+	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
+	var i
+	for(i=0;i<symbolFuncs;i++){
+		returnInstrumentData(x, symbolFuncs[i].toLowerCase())
+	}
+}
+
 // handler for markets
 var getInstrument = (x, inst) =>{
 	switch(inst){
@@ -94,3 +102,4 @@ var getInstrument = (x, inst) =>{
 }
 
 module.exports.getInstrument = getInstrument
+module.exports.returnMarkets = returnMarkets
