@@ -12,9 +12,9 @@ var request = require('request')
 var returnInstrumentData = (x, inst) =>{
 	instImg = {
 		"bitcoin" : bot.user.avatarURL,
-		"ethereum" : "https://res.cloudinary.com/teepublic/image/private/s--N6OLsMPW--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1512525647/production/designs/2144768_1.jpg",
-		"ripple" : "https://res.cloudinary.com/teepublic/image/private/s--TDvly_yb--/t_Preview/b_rgb:ffffff,c_limit,f_jpg,h_630,q_90,w_630/v1512526599/production/designs/2144847_1.jpg",
-		"bitcoin-cash" : "https://i.redd.it/nus982esrz901.png"
+		"ethereum" : "https://i0.wp.com/www.easycryptopacks.com/wp-content/uploads/2017/10/ETHEREUM-LOGO-2.png?fit=1920%2C1920&ssl=1",
+		"ripple" : "https://dontpanicsell.files.wordpress.com/2017/06/mark.png?w=768",
+		"bitcoin-cash" : "https://i.warosu.org/data/biz/img/0043/89/1510809334515.png"
 	}
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst
 	request({url: url, json: true}, function (error, response, body) {
