@@ -84,6 +84,7 @@ var getInstrument = (x, inst) =>{
 		}
 		case 'neo':{
 			returnInstrumentData(x, 'neo')
+			break
 		}
 		default:{
 			x.channel.send("That symbol does not have a stocks db entry. Please use `/stock help` for a list of commands.")
