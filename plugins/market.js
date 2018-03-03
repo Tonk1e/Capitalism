@@ -10,8 +10,8 @@ var request = require('request')
 
 // main
 var stockHelp = (x) =>{
-	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge']
-	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin']
+	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge', 'ltc', 'neo']
+	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
 	var i
 	helpEmbed = new discord.RichEmbed()
 	helpEmbed.setTitle('Stocks Help')
@@ -28,7 +28,9 @@ var returnInstrumentData = (x, inst) =>{
 		"ethereum" : "https://i0.wp.com/www.easycryptopacks.com/wp-content/uploads/2017/10/ETHEREUM-LOGO-2.png?fit=1920%2C1920&ssl=1",
 		"ripple" : "https://dontpanicsell.files.wordpress.com/2017/06/mark.png?w=768",
 		"bitcoin-cash" : "https://i.warosu.org/data/biz/img/0043/89/1510809334515.png",
-		"dogecoin" : "http://www.unixstickers.com/image/cache/data/stickers/dogecoin/Dogecoin.sh-600x600.png"
+		"dogecoin" : "http://www.unixstickers.com/image/cache/data/stickers/dogecoin/Dogecoin.sh-600x600.png",
+		"litecoin" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Litecoin.svg/2500px-Litecoin.svg.png",
+		"neo" : "http://scet.berkeley.edu/wp-content/uploads/High-Res-NEO-Logo.png"
 	}
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst 
 	request({url: url, json: true}, function (error, response, body) {
@@ -75,6 +77,13 @@ var getInstrument = (x, inst) =>{
 		case 'doge':{
 			returnInstrumentData(x, 'dogecoin')
 			break
+		}
+		case 'ltc':{
+			returnInstrumentData(x, 'litecoin')
+			break
+		}
+		case 'neo':{
+			returnInstrumentData(x, 'neo')
 		}
 		default:{
 			x.channel.send("That symbol does not have a stocks db entry. Please use `/stock help` for a list of commands.")
