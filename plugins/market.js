@@ -10,6 +10,12 @@ var request = require('request')
 
 // main
 var returnInstrumentData = (x, inst) =>{
+	instImg = {
+		"bitcoin" : "plugins/data/marketImg/bitcoin.jpg",
+		"ethereum" : "plugins/data/marketImg/ethereum.jpg",
+		"ripple" : "plugins/data/marketImg/ripple.jpg",
+		"bitcoin-cash" : "plugins/data/marketImg/bitcoin-cash.png"
+	}
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst
 	request({url: url, json: true}, function (error, response, body) {
 
@@ -18,6 +24,7 @@ var returnInstrumentData = (x, inst) =>{
 	        instEmbed = new discord.RichEmbed()
 	        instEmbed.setTitle(body[0]["name"] + " Information")
 	        instEmbed.setColor('ORANGE')
+	        instEmbed.setThumbnail(instImg[body[0]["id"]])
 	        instEmbed.addField("Symbol", body[0]["symbol"])
 	        instEmbed.addField("Price", body[0]["price_usd"] + " USD")
 	        instEmbed.addField("Market Cap", body[0]["market_cap_usd"] + " USD")
