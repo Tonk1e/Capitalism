@@ -16,7 +16,7 @@ var returnInstrumentData = (x, inst) =>{
 	    if (!error && response.statusCode === 200) {
 	        console.log(body[0])
 	        instEmbed = new discord.RichEmbed()
-	        instEmbed.setTitle(body.name + " Information")
+	        instEmbed.setTitle(body[0]["name"] + " Information")
 	        instEmbed.setColor('ORANGE')
 	        x.channel.send(instEmbed)
 	    }
