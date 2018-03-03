@@ -49,6 +49,7 @@ var returnInstrumentData = (x, inst) =>{
 	})
 }
 
+// handler for markets
 var getInstrument = (x, inst) =>{
 	switch(inst){
 		case 'help':{
