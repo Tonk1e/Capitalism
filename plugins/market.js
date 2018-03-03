@@ -18,6 +18,8 @@ var returnInstrumentData = (x, inst) =>{
 	        instEmbed = new discord.RichEmbed()
 	        instEmbed.setTitle(body[0]["name"] + " Information")
 	        instEmbed.setColor('ORANGE')
+	        instEmbed.addField("Price", body[0]["price_usd"] + " USD")
+	        instEmbed.addField("Market Cap", body[0]["market_cap_usd"] + " USD")
 	        x.channel.send(instEmbed)
 	    }
 	})
