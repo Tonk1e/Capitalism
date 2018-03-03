@@ -14,7 +14,8 @@ var returnInstrumentData = (x, inst) =>{
 		"bitcoin" : bot.user.avatarURL,
 		"ethereum" : "https://i0.wp.com/www.easycryptopacks.com/wp-content/uploads/2017/10/ETHEREUM-LOGO-2.png?fit=1920%2C1920&ssl=1",
 		"ripple" : "https://dontpanicsell.files.wordpress.com/2017/06/mark.png?w=768",
-		"bitcoin-cash" : "https://i.warosu.org/data/biz/img/0043/89/1510809334515.png"
+		"bitcoin-cash" : "https://i.warosu.org/data/biz/img/0043/89/1510809334515.png",
+		"dogecoin" : "http://www.unixstickers.com/image/cache/data/stickers/dogecoin/Dogecoin.sh-600x600.png"
 	}
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst 
 	request({url: url, json: true}, function (error, response, body) {
