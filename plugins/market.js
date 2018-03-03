@@ -18,7 +18,7 @@ var stockHelp = (x) =>{
 	helpEmbed.setColor('ORANGE')
 	helpEmbed.setDescription("The stocks command is for returning information about different markets. Following is a list of commands that can be used.")
 	for(i=0;i<symbols.length;i++){
-		helpEmbed.addField('/stock' + symbols[i], "Returns market information about " + symbolFuncs[i] + ".")
+		helpEmbed.addField('/stock ' + symbols[i], "Returns market information about " + symbolFuncs[i] + ".")
 	}
 	x.channel.send(helpEmbed)
 }
