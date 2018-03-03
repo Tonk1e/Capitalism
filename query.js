@@ -188,6 +188,10 @@ var query = (x, y) =>{
 			userInfo.commandsRun(x)
 			break
 		}
+		case '/markets':{
+			markets.returnMarkets(x)
+			break
+		}
 		default:{
 			break
 		}
