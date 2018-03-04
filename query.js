@@ -18,6 +18,7 @@ const yt = require('./plugins/youtube.js')
 const pc = require('./plugins/computing.js')
 const politics = require('./plugins/politics.js')
 const market = require('./plugins/market.js')
+const help = require('./plugins/help.js')
 
 // other requirements
 const fs = require('fs')
@@ -190,6 +191,10 @@ var query = (x, y) =>{
 		}
 		case '/markets':{
 			market.returnMarkets(x)
+			break
+		}
+		case '/help':{
+			help.sendHelp(x)
 			break
 		}
 		default:{

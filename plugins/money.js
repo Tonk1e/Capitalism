@@ -494,7 +494,7 @@ var economyReset = (x) =>{
 
 class shop{
 	constructor(){
-		this.vipList = [1, 500, "Get added to the VIP list."]
+		this.musicAccess = [1, 500]
 		this.gamePass = [2, 50, "Get one pass to play a game."]
 		this.items = [this.vipList, this.gamePass]
 		this.buy = (x, itemID, id) =>{

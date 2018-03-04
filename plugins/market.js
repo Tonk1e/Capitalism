@@ -9,6 +9,13 @@ var http = require('http')
 var request = require('request')
 
 // main
+var returnExchangeEmbed = (x) =>{
+	currencies = ["USD", "GBP", "BTC", "LTC", "XRP", "BCH", "DOGE"]
+	embed = new discord.RichEmbed()
+	embed.setTitle("Exchange Rates")
+	embed.setColor('ORANGE')
+	var i
+}
 var stockHelp = (x) =>{
 	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge', 'ltc', 'neo']
 	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
