@@ -52,7 +52,7 @@ var politicsHelp = (x, embed) =>{
 	for(i=0;i<politicsCommands.length;i++){
 		embed.addField(politicsCommands[i], politicsCommandsUse[i])
 	}
-	x.channel.send(embed)
+	x.author.send(embed)
 }
 
 var musicHelp = (x, embed) =>{
@@ -67,7 +67,7 @@ var musicHelp = (x, embed) =>{
 	for(i=0;i<musicCommands.length;i++){
 		embed.addField(musicCommands[i], musicCommandsUse[i])
 	}
-	x.channel.send(embed)
+	x.author.send(embed)
 }
 
 var computerScienceHelp = (x, embed) =>{
@@ -81,7 +81,7 @@ var computerScienceHelp = (x, embed) =>{
 	for(i=0;i<parts.length;i++){
 		embed.addField('/pc ' + parts[i], "Returns information about " + partNames[i] + ".")
 	}
-	x.channel.send(embed)
+	x.author.send(embed)
 }
 
 var sendHelp = (x) =>{
