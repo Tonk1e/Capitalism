@@ -389,8 +389,6 @@ var createAccount = (x) =>{
 		accounts[x.author.id] = 0
 		fs.writeFile('plugins/data/accounts.json', JSON.stringify(accounts, null, 2));
 		x.reply("Your account has been created with the ID of " + x.author.id + ".")
-		var accEmbed = accountEmbed(x.author)
-		x.channel.send(accEmbed)
 	}
 }
 
@@ -494,7 +492,7 @@ var economyReset = (x) =>{
 
 class shop{
 	constructor(){
-		this.musicAccess = [1, 500]
+		this.musicAccess = [1, 500, "Get access"]
 		this.gamePass = [2, 50, "Get one pass to play a game."]
 		this.items = [this.vipList, this.gamePass]
 		this.buy = (x, itemID, id) =>{

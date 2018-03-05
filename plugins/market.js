@@ -41,7 +41,7 @@ var returnInstrumentData = (x, inst) =>{
 		"dogecoin" : "http://www.unixstickers.com/image/cache/data/stickers/dogecoin/Dogecoin.sh-600x600.png",
 		"litecoin" : "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Litecoin.svg/2500px-Litecoin.svg.png",
 		"neo" : "http://scet.berkeley.edu/wp-content/uploads/High-Res-NEO-Logo.png"
-	}
+	}  
 	url = "http://api.coinmarketcap.com/v1/ticker/" + inst 
 	request({url: url, json: true}, function (error, response, body) {
 

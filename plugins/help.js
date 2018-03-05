@@ -55,8 +55,39 @@ var politicsHelp = (x, embed) =>{
 	x.channel.send(embed)
 }
 
+var musicHelp = (x, embed) =>{
+	musicCommands = ['/jazz']
+	musicCommandsUse = [
+	'Plays jazz.'
+	]
+	embed.setTitle("Music Help")
+	embed.setColor('ORANGE')
+	embed.setDescription("NOTE: This plugin hasn't been worked on that much, thus the plugin does work. It has issues when running on a Linux based OS, and it is only working with systems running with an NT based OS.")
+	var i
+	for(i=0;i<musicCommands.length;i++){
+		embed.addField(musicCommands[i], musicCommandsUse[i])
+	}
+	x.channel.send(embed)
+}
+
+var computerScienceHelp = (x, embed) =>{
+	var parts = ["ram", "hdd", "cpu", "ssd", "mobo"]
+	var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards"]
+	var helpEmbed = new discord.RichEmbed()
+	embed.setTitle("Computer Science Help")
+	embed.setColor('ORANGE')
+	embed.setDescription("This command is used to give information about different computing parts.")
+	var i
+	for(i=0;i<parts.length;i++){
+		embed.addField('/pc ' + parts[i], "Returns information about " + partNames[i] + ".")
+	}
+	x.channel.send(embed)
+}
+
 var sendHelp = (x) =>{
-	embed = new discord.RichEmbed()
+	embed = new discord.
+
+	
 	embed.setTitle("Help")
 	embed.setColor('ORANGE')
 	embed.setDescription("There are many different aspects of this bot. This command is to teach you how to use them. Following is a list of the different aspects of this bot.")
@@ -69,6 +100,8 @@ var sendHelp = (x) =>{
 	economicsHelp(x, new discord.RichEmbed())
 	stockHelp(x, new discord.RichEmbed())
 	politicsHelp(x, new discord.RichEmbed())
+	musicHelp(x, new discord.RichEmbed())
+	computerScienceHelp(x, new discord.RichEmbed())
 }
 
 module.exports.sendHelp = sendHelp
