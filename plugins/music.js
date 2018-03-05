@@ -12,7 +12,7 @@ const ytdl = require('ytdl-core')
 
 
 // main
-Array.prototype.randomElement = function () {
+Array.prototype.randomElement = () =>{
     return this[Math.floor(Math.random() * this.length)]
 }
 
