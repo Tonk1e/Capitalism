@@ -200,6 +200,7 @@ var query = (x, y) =>{
 		}
 		case '/update':{
 			dev.update(x)
+			break
 		}
 		default:{
 			break
