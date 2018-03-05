@@ -94,7 +94,8 @@ var sendHelp = (x) =>{
 	for(i=0;i<aspects.length;i++){
 		embed.addField(aspects[i], "---")
 	}
-	x.channel.send(embed)
+	x.reply("I sent the help embeds in your DMs. You better fucking read 'em.")
+	x.author.send(embed)
 	economicsHelp(x, new discord.RichEmbed())
 	stockHelp(x, new discord.RichEmbed())
 	politicsHelp(x, new discord.RichEmbed())
