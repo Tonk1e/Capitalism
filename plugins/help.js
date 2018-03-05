@@ -85,9 +85,7 @@ var computerScienceHelp = (x, embed) =>{
 }
 
 var sendHelp = (x) =>{
-	embed = new discord.
-
-	
+	embed = new discord.RichEmbed()
 	embed.setTitle("Help")
 	embed.setColor('ORANGE')
 	embed.setDescription("There are many different aspects of this bot. This command is to teach you how to use them. Following is a list of the different aspects of this bot.")
