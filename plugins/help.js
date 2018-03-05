@@ -19,7 +19,7 @@ var economicsHelp = (x, embed) =>{
 	for(i=0;i<moneyCommands.length;i++){
 		embed.addField(moneyCommands[i], moneyCommandsUse[i])
 	}
-	x.channel.send(embed)
+	x.author.send(embed)
 }
 
 var stockHelp = (x, embed) =>{
@@ -33,7 +33,7 @@ var stockHelp = (x, embed) =>{
 	for(i=0;i<symbols.length;i++){
 		embed.addField('/stock ' + symbols[i], "Returns market information about " + symbolFuncs[i] + ".")
 	}
-	x.channel.send(embed)
+	x.author.send(embed)
 }
 
 var politicsHelp = (x, embed) =>{
