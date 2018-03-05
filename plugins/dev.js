@@ -19,3 +19,5 @@ var update = (x) =>{
 		}
 	}
 }
+
+module.exports.update = update

@@ -19,6 +19,7 @@ const pc = require('./plugins/computing.js')
 const politics = require('./plugins/politics.js')
 const market = require('./plugins/market.js')
 const help = require('./plugins/help.js')
+const dev = require('./plugins/dev.js')
 
 // other requirements
 const fs = require('fs')
@@ -196,6 +197,9 @@ var query = (x, y) =>{
 		case '/help':{
 			help.sendHelp(x)
 			break
+		}
+		case '/update':{
+			dev.update(x)
 		}
 		default:{
 			break
