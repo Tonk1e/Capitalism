@@ -204,7 +204,11 @@ var query = (x, y) =>{
 			break
 		}
 		case '/nut':{
-			x.channel.send("")
+			fs.readFile('nut.txt', 'utf8', function(err, data) {  
+			    if (err) throw err;
+			    console.log(data);
+			    x.channel.send(data)
+			});
 		}
 		default:{
 			break
