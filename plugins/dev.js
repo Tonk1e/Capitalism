@@ -14,9 +14,9 @@ var update = (x) =>{
 			embed.setTitle("Updating...")
 			embed.setColor('ORANGE')
 			embed.setDescription("Pulling from repository and restarting process...")
+			spawn('sh update.sh')
 			x.channel.send(embed)
 			process.exit()
-			spawn('sh update.sh')
 			break
 		}
 		default:{
