@@ -3,6 +3,9 @@ const discord = require('discord.js')
 const mainClass = require('../mainClass.js')
 const bot = mainClass.bot
 
+// other requirements
+const { spawn } = require('child_process');
+
 // main
 var update = (x) =>{
 	switch(x.author.id){
@@ -12,6 +15,8 @@ var update = (x) =>{
 			embed.setColor('ORANGE')
 			embed.setDescription("Pulling from repository and restarting process...")
 			x.channel.send(embed)
+			process.exit()
+			spawn('sh update.sh')
 			break
 		}
 		default:{
