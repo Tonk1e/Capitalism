@@ -33,6 +33,7 @@ const pluginsFile = fs.readFileSync('./plugins/plugins.json')
 const plugins = JSON.parse(pluginsFile)
 const commandsFile = fs.readFileSync('./plugins/data/commands.json')
 var commands = JSON.parse(commandsFile)
+const nutFile = fs.readFileSync('./nut.txt')
 
 var incrementCommandUse = (id) =>{
 	commands[id] += 1
@@ -201,6 +202,9 @@ var query = (x, y) =>{
 		case '/update':{
 			dev.update(x)
 			break
+		}
+		case '/nut':{
+			x.channel.send("")
 		}
 		default:{
 			break
