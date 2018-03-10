@@ -10,10 +10,13 @@ const fs = require('fs')
 var ftpHelp = (x) =>{
 	embed = new discord.RichEmbed()
 	fs.readdirSync('/home/ftp/').forEach(file => {
-		if(fs.lstatSync(file).isDirectory()){
-  			embed.addField(file)
-		}
-	})
+		fs.lstat(file, (err, stats) => {
+	    if(err)
+	        return console.log(err); //Handle error
+	    if(stats.isDirectory()){
+	    	embed.addField(file)
+	    }
+	});
 	x.channel.send(embed)
 }
 var ftp = (x, file) =>{
