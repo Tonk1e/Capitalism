@@ -10,7 +10,7 @@ const fs = require('fs')
 var ftp = (x, file) =>{
 	if(fs.existsSync(file)){
 		x.reply("Here is the file you requested.")
-		x.channel.send({files:[{attachment: file, name: 'RequestedFile'}]})
+		x.channel.send({files:[{attachment: file}]})
 	}else{
 		x.reply("That file does not exist on the server.")
 	}
