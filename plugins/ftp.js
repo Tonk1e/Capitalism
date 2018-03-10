@@ -43,6 +43,7 @@ var handleFtpRequest = (x, file) =>{
 					break
 				}
 			}
+			break
 		}
 		case '337333673781100545':{
 			switch(file){
@@ -55,9 +56,11 @@ var handleFtpRequest = (x, file) =>{
 					break
 				}
 			}
+			break
 		}
 		default:{
 			x.reply("Not yours tosspot.")
+			break
 		}
 	}
 }
