@@ -26,6 +26,9 @@ var handleFtpRequest = (x, file) =>{
 			ftp(x, file)
 			break
 		}
+		default:{
+			x.reply("Not for you, tosspot.")
+		}
 	}
 }
 
