@@ -11,8 +11,9 @@ var ftpHelp = (x) =>{
 	embed = new discord.RichEmbed()
 	fs.readdirSync('/home/ftp/').forEach(file => {
 		fs.lstat(file, (err, stats) => {
-	    if(err)
+	    if(err){
 	        return console.log(err); //Handle error
+	    }
 	    if(stats.isDirectory()){
 	    	embed.addField(file)
 	    }
