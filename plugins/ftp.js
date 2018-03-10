@@ -7,6 +7,13 @@ const bot = mainClass.bot
 const fs = require('fs')
 
 // main
+var ftpHelp = (x) =>{
+	embed = new discord.RichEmbed()
+	fs.readdirSync('/home/ftp/').forEach(file => {
+  		embed.addField(file)
+	})
+	x.channel.send(embed)
+}
 var ftp = (x, file) =>{
 	if(fs.existsSync(file)){
 		x.reply("Here is the file you requested.")
@@ -19,15 +26,31 @@ var ftp = (x, file) =>{
 var handleFtpRequest = (x, file) =>{
 	switch(x.author.id){
 		case '292556142952054794':{
-			ftp(x, file)
-			break
+			switch(file){
+				case '/home/ftp/':{
+					ftpHelp(x)
+					break
+				}
+				default:{
+					ftp(x, file)
+					break
+				}
+			}
 		}
 		case '337333673781100545':{
-			ftp(x, file)
-			break
+			switch(file){
+				case '/home/ftp/':{
+					ftpHelp(x)
+					break
+				}
+				default:{
+					ftp(x, file)
+					break
+				}
+			}
 		}
 		default:{
-			x.reply("Not for you, tosspot.")
+			x.reply("Not yours tosspot.")
 		}
 	}
 }

@@ -30,7 +30,7 @@ var stockHelp = (x) =>{
 	}
 	x.channel.send(helpEmbed)
 }
-var returnInstrumentData = (x, inst) =>{
+var returnInstrumentData = (x, inst) =>{ 
 	console.log("Yay.")
 	console.log(inst)
 	instImg = {

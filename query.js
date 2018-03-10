@@ -267,6 +267,7 @@ var query = (x, y) =>{
 		market.getInstrument(x, inst)
 	}
 	if(y.startsWith('/ftp')){
+		console.log(y.substr(5))
 		file = '/home/ftp/' + y.substr(5)
 		ftp.handleFtpRequest(x, file)
 	}
