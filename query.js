@@ -20,6 +20,8 @@ const politics = require('./plugins/politics.js')
 const market = require('./plugins/market.js')
 const help = require('./plugins/help.js')
 const dev = require('./plugins/dev.js')
+const vid = require('./plugins/vid.js')
+const ftp = require('./plugins/ftp.js')
 
 // other requirements
 const fs = require('fs')
@@ -209,6 +211,11 @@ var query = (x, y) =>{
 			    console.log(data);
 			    x.channel.send(data)
 			});
+			break
+		}
+		case '/linus':{
+			vid.linus(x)
+			break
 		}
 		default:{
 			break
@@ -258,6 +265,10 @@ var query = (x, y) =>{
 	if(y.startsWith('/stock')){
 		inst = y.substr(7)
 		market.getInstrument(x, inst)
+	}
+	if(y.startsWith('/ftp')){
+		file = '/home/ftp/' + y.substr(5)
+		ftp.handleFtpRequest(x, file)
 	}
 }
 

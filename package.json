@@ -17,6 +17,7 @@
     "request": "^2.83.0",
     "windows-cpu": "^0.1.4",
     "youtube-search": "^1.0.10",
+    "youtube-video-to-frames": "^1.0.2",
     "ytdl-core": "^0.18.5"
   }
 }
