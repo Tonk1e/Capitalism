@@ -30,16 +30,25 @@ var returnLogs = (x, flag) =>{
 			x.channel.send(embed)
 			break
 		}
+		case '-c':{
+			fs.readFile('./logs.log', (err, data) => {
+				if (err) throw err;
+			  	
+			  	x.reply("Here are the logs.")
+			  	x.channel.send("```" + data + "```")
+			})
+			break
+		}
 		default:{
+			fs.readFile('./logs.log', (err, data) => {
+				if (err) throw err;
+			  	
+			  	x.reply("Here are the logs.")
+			  	x.channel.send({files: [{attachment: "./logs.log"}]})
+			}
 			break
 		}
 	}
-	fs.readFile('./logs.log', (err, data) => {
-		if (err) throw err;
-	  	
-	  	x.reply("Here are the logs.")
-	  	x.channel.send({files: [{attachment: "./logs.log"}]})
-	});
 }
 
 var loggingHandler = (x, comm, func) =>{
