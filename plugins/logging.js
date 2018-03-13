@@ -16,6 +16,7 @@ var randID = () =>{
 }
 
 var returnLogs = (x, flag) =>{
+	console.log(flag)
 	switch(flag){
 		case '-h':{
 			embed = new discord.RichEmbed()
@@ -45,7 +46,7 @@ var returnLogs = (x, flag) =>{
 			  	
 			  	x.reply("Here are the logs.")
 			  	x.channel.send({files: [{attachment: "./logs.log"}]})
-			}
+			})
 			break
 		}
 	}

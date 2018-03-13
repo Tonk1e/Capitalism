@@ -113,12 +113,12 @@ var query = (x, y) =>{
 			x.channel.sendEmbed(sysEmbed)
 			break
 		}
-		case '/ping':{
-			logging.loggingHandler(x, '/ping', 'ping.ping(x)')
-			incrementCommandUse(x.author.id)
-			ping.ping(x)
-			break
-		}
+		// case '/ping':{
+			// logging.loggingHandler(x, '/ping', 'ping.ping(x)')
+			// incrementCommandUse(x.author.id)
+			//ping.ping(x)
+			// break
+		// }
 		case '/avatar':{
 			logging.loggingHandler(x, '/avatar', 'userInfo.sendUserAvatar(x)')
 			incrementCommandUse(x.author.id)
