@@ -242,10 +242,6 @@ var query = (x, y) =>{
 			});
 			break
 		}
-		case '/linus':{
-			vid.linus(x)
-			break
-		}
 		default:{
 			break
 		}
