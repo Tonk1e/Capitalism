@@ -38,7 +38,10 @@ var ping = (x) =>{
 			currentGuilds++
 		}
 		embed.addField("Current Guilds", currentGuilds)
-		for()
+		for(var i=0;i<bot.users;i++){
+			botUsers++
+		}
+		embed.addField("Users", botUsers)
 	}else{
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
