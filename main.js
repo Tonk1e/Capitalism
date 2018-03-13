@@ -117,20 +117,24 @@ bot.on('message', (message) => {
 			message.reply("Interest has been payed on the money in your account.")
 		}
 	}
-	query.query(message, message.content)
-	if(message.content.startsWith('/play')){
-		games.playGame(message)
-	}
-	if(message.content.startsWith('/changewage')){
-		if(message.author.id == '292556142952054794'){
-			id = message.content.substr(12, 18)
-			console.log(id)
-			amount = message.content.substr(31)
-			console.log(amount)
-			wageChange = money.changeWage(amount, id)
-			message.reply(wageChange)
-		}else{
-			return
+	if(message.author.id == "337333673781100545"){
+		message.reply("I don't speak whale.")
+	}else{
+		query.query(message, message.content)
+		if(message.content.startsWith('/play')){
+			games.playGame(message)
+		}
+		if(message.content.startsWith('/changewage')){
+			if(message.author.id == '292556142952054794'){
+				id = message.content.substr(12, 18)
+				console.log(id)
+				amount = message.content.substr(31)
+				console.log(amount)
+				wageChange = money.changeWage(amount, id)
+				message.reply(wageChange)
+			}else{
+				return
+			}
 		}
 	}
 });
