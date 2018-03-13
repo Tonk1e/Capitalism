@@ -112,12 +112,12 @@ var query = (x, y) =>{
 			x.channel.sendEmbed(sysEmbed)
 			break
 		}
-		// case '/ping':{
-			// logging.loggingHandler(x, '/ping', 'ping.ping(x)')
-			// incrementCommandUse(x.author.id)
-			//ping.ping(x)
-			// break
-		// }
+		case '/ping':{
+			logging.loggingHandler(x, '/ping', 'ping.ping(x)')
+			incrementCommandUse(x.author.id)
+			ping.ping(x)
+			break
+		}
 		case '/avatar':{
 			logging.loggingHandler(x, '/avatar', 'userInfo.sendUserAvatar(x)')
 			incrementCommandUse(x.author.id)
@@ -234,7 +234,7 @@ var query = (x, y) =>{
 		}
 		case '/nut':{
 			logging.loggingHandler(x, '/nut', 'nut.nut(x)')
-			fs.readFile('nut.txt', 'utf8', function(err, data) {  
+			fs.readFile('nut.txt', 'utf8', function(err, data) {
 			    if (err) throw err;
 			    console.log(data);
 			    x.channel.send(data)

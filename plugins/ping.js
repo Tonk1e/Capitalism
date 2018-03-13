@@ -13,9 +13,9 @@ var info = JSON.parse(infoFile)
 
 // main
 var getUptime = (x) =>{
-	uptimeHrs = uptime["hrs"] 
-	uptimeMins = uptime["mins"] 
-	uptimeSecs = uptime["secs"] 
+	uptimeHrs = uptime["hrs"]
+	uptimeMins = uptime["mins"]
+	uptimeSecs = uptime["secs"]
 	console.log(uptimeHrs)
 	console.log(uptimeMins)
 	console.log(uptimeSecs)
@@ -24,7 +24,7 @@ var getUptime = (x) =>{
 	return uptime_
 }
 var ping = (x) =>{
-	if(uptime["daysBool"] == true){
+	if(uptime["days"] >= 1){
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]
