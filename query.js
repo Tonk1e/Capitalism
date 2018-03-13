@@ -20,7 +20,6 @@ const politics = require('./plugins/politics.js')
 const market = require('./plugins/market.js')
 const help = require('./plugins/help.js')
 const dev = require('./plugins/dev.js')
-const vid = require('./plugins/vid.js')
 const ftp = require('./plugins/ftp.js')
 const logging = require('./plugins/logging.js')
 
