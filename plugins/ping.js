@@ -51,7 +51,7 @@ var ping = (x) =>{
 				onlineUsers++
 			}
 		}
-		embed.addField("Users", botUsers)
+		embed.addField("Users", onlineUsers + ' Online / ' + botUsers)
 	}else{
 		console.log(bot.users.array())
 		console.log(bot.guilds.array())
@@ -79,7 +79,7 @@ var ping = (x) =>{
 				onlineUsers++
 			}
 		}
-		embed.addField("Users", botUsers)
+		embed.addField("Users", onlineUsers + ' Online / ' + botUsers)
 	}
 	x.channel.sendEmbed(embed)
 }
