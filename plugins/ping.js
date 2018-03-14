@@ -10,6 +10,8 @@ var uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
 const infoFile = fs.readFileSync('info.json')
 var info = JSON.parse(infoFile)
+var commandsFile = fs.readFileSync('./plugins/data/commands.json')
+var commands = JSON.parse(commandsFile)
 
 // main
 var getUptime = (x) =>{
@@ -23,7 +25,7 @@ var getUptime = (x) =>{
 	console.log(uptime_)
 	return uptime_
 }
-var ping = (x) =>{
+var ping = (x, comm) =>{
 	if(uptime["days"] >= 1){
 		console.log(bot.users.array())
 		console.log(bot.guilds.array())
@@ -46,15 +48,14 @@ var ping = (x) =>{
 		for(var i in bot.users.array()){
 			botUsers++
 		}
-		for(var i in bot.users){
+		console.log(bot.users)
+		for(var i in bot.users[0]){
 			if(i.presence.status == 'online'){
 				onlineUsers++
 			}
 		}
-		embed.addField("Users", onlineUsers + ' Online / ' + botUsers)
-	}else{
+		embed.addField("Users", botUsers)	}else{
 		console.log(bot.users.array())
-		console.log(bot.guilds.array())
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]
@@ -74,12 +75,8 @@ var ping = (x) =>{
 		for(var i in bot.users.array()){
 			botUsers++
 		}
-		for(var i in bot.users){
-			if(i.presence.status == 'online'){
-				onlineUsers++
-			}
-		}
-		embed.addField("Users", onlineUsers + ' Online / ' + botUsers)
+		embed.addField("Users", botUsers)
+		embed.addField("Commands Run", comm)
 	}
 	x.channel.sendEmbed(embed)
 }

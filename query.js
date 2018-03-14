@@ -37,7 +37,10 @@ const commandsFile = fs.readFileSync('./plugins/data/commands.json')
 var commands = JSON.parse(commandsFile)
 const nutFile = fs.readFileSync('./nut.txt')
 
+runCommands = 0
+
 var incrementCommandUse = (id) =>{
+	runCommands += 1
 	commands[id] += 1
 	fs.writeFile('./plugins/data/commands.json', JSON.stringify(commands, null, 2))
 }
@@ -115,7 +118,7 @@ var query = (x, y) =>{
 		case '/ping':{
 			logging.loggingHandler(x, '/ping', 'ping.ping(x)')
 			incrementCommandUse(x.author.id)
-			ping.ping(x)
+			ping.ping(x, runCommands)
 			break
 		}
 		case '/avatar':{
