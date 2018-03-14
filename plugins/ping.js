@@ -54,12 +54,12 @@ var ping = (x) =>{
 		embed.addField('Ping', ping + ' ms')
 		embed.addField('Current Machine', info["machine"])
 		embed.addField('Uptime', main.getUptime(x))
-		var currentGuilds
+		var currentGuilds = 0
 		for(var i=0;i<bot.guilds;i++){
 			currentGuilds++
 		}
 		embed.addField("Current Guilds", currentGuilds)
-		var botUsers
+		var botUsers = 0
 		for(var i=0;i<bot.users;i++){
 			botUsers++
 		}
