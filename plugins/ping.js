@@ -52,6 +52,14 @@ var ping = (x) =>{
 		embed.addField('Ping', ping + ' ms')
 		embed.addField('Current Machine', info["machine"])
 		embed.addField('Uptime', main.getUptime(x))
+		for(var i=0;i<bot.guilds;i++){
+			currentGuilds++
+		}
+		embed.addField("Current Guilds", currentGuilds)
+		for(var i=0;i<bot.users;i++){
+			botUsers++
+		}
+		embed.addField("Users", botUsers)
 	}
 	x.channel.sendEmbed(embed)
 }
