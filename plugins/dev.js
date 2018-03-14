@@ -14,8 +14,8 @@ var update = (x) =>{
 			embed.setTitle("Updating...")
 			embed.setColor('ORANGE')
 			embed.setDescription("Pulling from repository and restarting process...")
-			shell.exec('./update.sh')
 			x.channel.send(embed)
+			shell.exec('./update.sh')
 			process.exit()
 			break
 		}
