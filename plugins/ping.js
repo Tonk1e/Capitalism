@@ -24,7 +24,7 @@ var getUptime = (x) =>{
 	return uptime_
 }
 var ping = (x) =>{
-	if(uptime["days"] >= 1)
+	if(uptime["days"] >= 1){
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]
