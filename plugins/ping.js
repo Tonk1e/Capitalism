@@ -25,6 +25,8 @@ var getUptime = (x) =>{
 }
 var ping = (x) =>{
 	if(uptime["days"] >= 1){
+		console.log(bot.users.array())
+		console.log(bot.guilds.array())
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]
@@ -34,14 +36,20 @@ var ping = (x) =>{
 		embed.addField('Ping', ping + ' ms')
 		embed.addField('Current Machine', info["machine"])
 		embed.addField('Uptime', uptime["days"] + ' days ' + main.getUptime(x))
-		var currentGuilds
-		for(var i=0;i<bot.guilds;i++){
+		var currentGuilds = 0
+		for(var i in bot.guilds.array()){
 			currentGuilds++
 		}
 		embed.addField("Current Guilds", currentGuilds)
-		var botUsers
-		for(var i=0;i<bot.users;i++){
-			botUsers++
+		var botUsers = 0
+		var onlineUsers = 0
+		for(var i in bot.users.array()){
+			if(i.presence.status == 'online'){
+				onlineUsers++
+				botUsers++
+			}else{
+				botUsers++
+			}
 		}
 		embed.addField("Users", botUsers)
 	}else{
@@ -62,8 +70,14 @@ var ping = (x) =>{
 		}
 		embed.addField("Current Guilds", currentGuilds)
 		var botUsers = 0
+		var onlineUsers = 0
 		for(var i in bot.users.array()){
-			botUsers++
+			if(i.presence.status == 'online'){
+				onlineUsers++
+				botUsers++
+			}else{
+				botUsers++
+			}
 		}
 		embed.addField("Users", botUsers)
 	}
