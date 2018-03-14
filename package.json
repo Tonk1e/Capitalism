@@ -15,6 +15,7 @@
     "ffmpeg-binaries": "^3.2.2-3",
     "opusscript": "0.0.6",
     "request": "^2.83.0",
+    "shelljs": "^0.8.1",
     "windows-cpu": "^0.1.4",
     "youtube-search": "^1.0.10",
     "youtube-video-to-frames": "^1.0.2",

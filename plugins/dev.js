@@ -4,7 +4,7 @@ const mainClass = require('../mainClass.js')
 const bot = mainClass.bot
 
 // other requirements
-const { spawn } = require('child_process');
+var shell = require('shelljs')
 
 // main
 var update = (x) =>{
@@ -14,7 +14,7 @@ var update = (x) =>{
 			embed.setTitle("Updating...")
 			embed.setColor('ORANGE')
 			embed.setDescription("Pulling from repository and restarting process...")
-			spawn('sh', ['update.sh'])
+			shell.exec('./update.sh')
 			x.channel.send(embed)
 			process.exit()
 			break
