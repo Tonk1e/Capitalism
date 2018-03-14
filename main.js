@@ -133,7 +133,6 @@ bot.on('message', (message) => {
 			return
 		}
 	}
-	}
 });
 
 module.exports.getUptime = getUptime
