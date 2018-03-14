@@ -37,18 +37,18 @@ var ping = (x) =>{
 		embed.addField('Current Machine', info["machine"])
 		embed.addField('Uptime', uptime["days"] + ' days ' + main.getUptime(x))
 		var currentGuilds = 0
-		for(var i in bot.guilds){
+		for(var i in bot.guilds.array()){
 			currentGuilds++
 		}
 		embed.addField("Current Guilds", currentGuilds)
 		var botUsers = 0
 		var onlineUsers = 0
+		for(var i in bot.users.array()){
+			botUsers++
+		}
 		for(var i in bot.users){
 			if(i.presence.status == 'online'){
 				onlineUsers++
-				botUsers++
-			}else{
-				botUsers++
 			}
 		}
 		embed.addField("Users", botUsers)
@@ -65,18 +65,18 @@ var ping = (x) =>{
 		embed.addField('Current Machine', info["machine"])
 		embed.addField('Uptime', main.getUptime(x))
 		var currentGuilds = 0
-		for(var i in bot.guilds){
+		for(var i in bot.guilds.array()){
 			currentGuilds++
 		}
 		embed.addField("Current Guilds", currentGuilds)
 		var botUsers = 0
 		var onlineUsers = 0
+		for(var i in bot.users.array()){
+			botUsers++
+		}
 		for(var i in bot.users){
 			if(i.presence.status == 'online'){
 				onlineUsers++
-				botUsers++
-			}else{
-				botUsers++
 			}
 		}
 		embed.addField("Users", botUsers)
