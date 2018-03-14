@@ -45,6 +45,8 @@ var ping = (x) =>{
 		}
 		embed.addField("Users", botUsers)
 	}else{
+		console.log(bot.users.array())
+		console.log(bot.guilds.array())
 		x.reply("I'm here! Here's some info...")
 		uptime_ = getUptime(x)
 		ping = bot.pings[0]
