@@ -492,9 +492,8 @@ var economyReset = (x) =>{
 
 class shop{
 	constructor(){
-		this.musicAccess = [1, 500, "Get access"]
 		this.gamePass = [2, 50, "Get one pass to play a game."]
-		this.items = [this.vipList, this.gamePass]
+		this.items = [this.gamePass]
 		this.buy = (x, itemID, id) =>{
 			console.log(itemID + 1)
 			if(id in accounts){

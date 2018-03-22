@@ -30,7 +30,7 @@ var startBusiness = (x) =>{
 	embed2.setColor("ORANGE")
 	x.author.send(embed2)
 	fs.readFile('./plugins/data/exampleForm.txt', 'utf8', function(err, data) {
-		if (err) throw err;
+		if (err) throw err; 
 
 		x.author.send(data)
 	});

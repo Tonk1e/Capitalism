@@ -4,7 +4,7 @@ const mainClass = require('../mainClass.js')
 const bot = mainClass.bot
 
 // main
-var economicsHelp = (x, y, embed) =>{
+var economicsHelp = (x, embed) =>{
 	moneyCommands = ['/bal', '/status', '/register', '/shop', '/buy', '/check']
 	moneyCommandsUse = [
 	'Check your bank account balance.', 
@@ -19,10 +19,10 @@ var economicsHelp = (x, y, embed) =>{
 	for(i=0;i<moneyCommands.length;i++){
 		embed.addField(moneyCommands[i], moneyCommandsUse[i])
 	}
-	x.edit(embed)
+	x.channel.send(embed)
 }
 
-var stockHelp = (x, y, embed) =>{
+var stockHelp = (x, embed) =>{
 	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge', 'ltc', 'neo']
 	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
 	var i
@@ -33,13 +33,13 @@ var stockHelp = (x, y, embed) =>{
 	for(i=0;i<symbols.length;i++){
 		embed.addField('/stock ' + symbols[i], "Returns market information about " + symbolFuncs[i] + ".")
 	}
-	x.edit(embed)
+	x.channel.send(embed)
 }
 
-var politicsHelp = (x, y, embed) =>{
+var politicsHelp = (x, embed) =>{
 	politicsCommands = ['/beliefs', '/belief', '/parties', '/party', '/politics']
 	politicsCommandsUse = [
-	'Lists all available ideological groups that you can become a part of. They are numbered with IDs that you will use with the next command.',
+	'Lists all ava ilable ideological groups that you can become a part of. They are numbered with IDs that you will use with the next command.',
 	'Changes your current ideological group. Use an ID from the previous command to be assigned to the group that the selected ID corresponds with. For example, `/belief 1`',
 	'Lists all available parties that you can become a part of. They are numbered with IDs that you will use with the next command.',
 	'Changes your current party. Use an ID from the previous command to be assigned to the party that the selected ID corresponds with. For example, `/party 1`',
@@ -52,10 +52,10 @@ var politicsHelp = (x, y, embed) =>{
 	for(i=0;i<politicsCommands.length;i++){
 		embed.addField(politicsCommands[i], politicsCommandsUse[i])
 	}
-	x.edit(embed)
+	x.channel.send(embed)
 }
 
-var musicHelp = (x, y, embed) =>{
+var musicHelp = (x, embed) =>{
 	musicCommands = ['/jazz']
 	musicCommandsUse = [
 	'Plays jazz.'
@@ -67,44 +67,60 @@ var musicHelp = (x, y, embed) =>{
 	for(i=0;i<musicCommands.length;i++){
 		embed.addField(musicCommands[i], musicCommandsUse[i])
 	}
-	x.edit(embed)
+	x.channel.send(embed)
 }
 
-var computerScienceHelp = (x, y, embed) =>{
-	var parts = ["ram", "hdd", "cpu", "ssd", "mobo"]
-	var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards"]
-	var helpEmbed = new discord.RichEmbed()
-	embed.setTitle("Computer Science Help")
-	embed.setColor('ORANGE')
-	embed.setDescription("This command is used to give information about different computing parts.")
-	var i
-	for(i=0;i<parts.length;i++){
-		embed.addField('/pc ' + parts[i], "Returns information about " + partNames[i] + ".")
+var newsHelp = (x, embed) =>{
+	embed.setTitle("News Help")
+	embed.setColor("ORANGE")
+	sources = ['bbc', 'fox', 'bloom', 'breitbart', 'cnn', '-r']
+	sourceDescription = [
+	"Returns one of the latest articles from BBC News.", 
+	"Returns one of the latest articles from Fox News.", 
+	"Returns one of the latest articles from Bloomberg.", 
+	"Returns one of the latest articles from Breitbart News.",
+	"Returns one of the latest articles from CNN.",
+	"Returns a random article."
+	]
+	embed.setDescription("The news command is to keep you updated on all of the latest affairs, as I hope you had guessed.")
+	for(var i=0;i<sources.length;i++){
+		embed.addField("/news " + sources[i], sourceDescription[i])
 	}
-	x.edit(embed)
+	x.channel.send(embed)
 }
 
-var sendHelp = (x) =>{
+var computerScienceHelp = (x, embed) =>{
+  	var parts = ["ram", "hdd", "cpu", "ssd", "mobo"]
+	var partNames = ["RAM", "Hard Drives", "CPUs", "Solid State Drives", "Motherboards"]
+  	embed.setTitle("Computing Help")
+  	embed.setColor('ORANGE')
+ 	var i
+  	for(i=0;i<parts.length;i++){
+    	embed.addField('/pc ' + parts[i], "Returns information about " + partNames[i] + ".")
+  	}
+  	x.channel.send(embed)
+}
+
+var sendHelp = (x, embed) =>{
 	embed = new discord.RichEmbed()
 	embed.setTitle("Help")
 	embed.setColor('ORANGE')
 	embed.setDescription("There are many different aspects of this bot. This command is to teach you how to use them. Following is a list of the different aspects of this bot.")
-	aspects = ["Economics", "Stocks", "Politics", "Music", "Computer Science"]
-	helps = [computerScienceHelp(), musicHelp(), politicsHelp(), stockHelp(), economicsHelp()]
+	aspects = ["Economics", "Stocks", "Politics", "Music", "Computer Science", "News"]
 	var i
 	for(i=0;i<aspects.length;i++){
 		embed.addField(aspects[i], "---")
 	}
-	x.reply("I sent the help embeds in your DMs. You better fucking read 'em.")
-	x.author.send(embed)
+	x.channel.send(embed)
 	economicsHelp(x, new discord.RichEmbed())
 	stockHelp(x, new discord.RichEmbed())
 	politicsHelp(x, new discord.RichEmbed())
 	musicHelp(x, new discord.RichEmbed())
 	computerScienceHelp(x, new discord.RichEmbed())
+	newsHelp(x, new discord.RichEmbed())
 }
 
-var economicsWelcomeHelp = (x) =>{
+var economicsWelcomeHelp = (x, embed) =>{
 	moneyCommands = ['/bal', '/status', '/register', '/shop', '/buy', '/check']
 	moneyCommandsUse = [
 	'Check your bank account balance.', 
@@ -122,7 +138,7 @@ var economicsWelcomeHelp = (x) =>{
 	x.send(embed)
 }
 
-var stockWelcomeHelp = (x) =>{
+var stockWelcomeHelp = (x, embed) =>{
 	symbols = ['btc', 'eth', 'xrp', 'bch', 'doge', 'ltc', 'neo']
 	symbolFuncs = ['Bitcoin', 'Ethereum', 'Ripple', 'Bitcoin-Cash', 'Dogecoin', 'Litecoin', 'NEO']
 	var i
@@ -136,7 +152,7 @@ var stockWelcomeHelp = (x) =>{
 	x.send(embed)
 }
 
-var politicsWelcomeHelp = (x) =>{
+var politicsWelcomeHelp = (x, embed) =>{
 	politicsCommands = ['/beliefs', '/belief', '/parties', '/party', '/politics']
 	politicsCommandsUse = [
 	'Lists all available ideological groups that you can become a part of. They are numbered with IDs that you will use with the next command.',

@@ -23,6 +23,7 @@ const dev = require('./plugins/dev.js')
 const ftp = require('./plugins/ftp.js')
 const logging = require('./plugins/logging.js')
 const business = require('./plugins/business.js')
+const news = require('./plugins/news.js')
 
 // other requirements
 const fs = require('fs')
@@ -273,6 +274,9 @@ var query = (x, y) =>{
 		default:{
 			break
 		}
+	}
+	if(y.startsWith('/news')){
+		news.requestHandler(x.channel, y.substr(6))
 	}
 	if(y.startsWith('/apply')){
 		form = y.substr(7)
