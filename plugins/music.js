@@ -19,7 +19,7 @@ Array.prototype.randomElement = () => {
 var jazz = (channel, message) =>{
 	channel.join()
 		.then(connection => {
-				var jazzPointers = ['./plugins/music/jazz.m4a']
+				var jazzPointers = ['./plugins/music/jazz.m4a', './plugins/music/jazz2.m4a', './plugins/music/jazz3.m4a']
 				console.log(jazzPointers[Math.floor(Math.random() * jazzPointers.length)])
 				var jazzFile = jazzPointers.randomElement()
     		const dispatcher = connection.playFile(jazzPointers[Math.floor(Math.random() * jazzPointers.length)]);
