@@ -1,0 +1,12 @@
+```
+Full Name:
+	[Name]
+DOB:
+	DD/MM/YYYY
+Company Name:
+	[Company Name]
+Company Type:
+	[Company Type]
+ID:
+	[Discord ID]
+```
