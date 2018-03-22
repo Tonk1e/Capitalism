@@ -22,6 +22,7 @@ const help = require('./plugins/help.js')
 const dev = require('./plugins/dev.js')
 const ftp = require('./plugins/ftp.js')
 const logging = require('./plugins/logging.js')
+const business = require('./plugins/business.js')
 
 // other requirements
 const fs = require('fs')
@@ -36,6 +37,7 @@ const plugins = JSON.parse(pluginsFile)
 const commandsFile = fs.readFileSync('./plugins/data/commands.json')
 var commands = JSON.parse(commandsFile)
 const nutFile = fs.readFileSync('./nut.txt')
+var businessCache = JSON.parse(fs.readFileSync('./plugins/data/businessCache.json'))
 
 runCommands = 0
 
@@ -244,9 +246,37 @@ var query = (x, y) =>{
 			});
 			break
 		}
+		case '/business':{
+			business.startBusiness(x)
+			break
+		}
+		case '/companies':{
+			business.companies(x)
+			break
+		}
+		case '/applications':{
+			if(x.author.id == '292556142952054794'){
+				embed = new discord.RichEmbed()
+				embed.setTitle("Here are all of the pending business application forms.")
+				embed.setColor("ORANGE")
+				x.author.send(embed)
+				var applications = JSON.parse(fs.readFileSync('./plugins/data/applications.json'))
+				for(i in applications){
+					if(i == false){
+					}else{
+						x.author.send(applications[i])
+					}
+				}			
+			}
+			break
+		}
 		default:{
 			break
 		}
+	}
+	if(y.startsWith('/apply')){
+		form = y.substr(7)
+		business.addApplication(form)
 	}
 	if(y.startsWith('/transfer')){
 		logging.loggingHandler(x, '/transfer', 'money.transfer(x.author.id, id, amount)')

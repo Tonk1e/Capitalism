@@ -33,7 +33,7 @@ var stockHelp = (x) =>{
 var returnInstrumentData = (x, inst) =>{ 
 	console.log("Yay.")
 	console.log(inst)
-	instImg = {
+	instImg = {  
 		"bitcoin" : bot.user.avatarURL,
 		"ethereum" : "https://i0.wp.com/www.easycryptopacks.com/wp-content/uploads/2017/10/ETHEREUM-LOGO-2.png?fit=1920%2C1920&ssl=1",
 		"ripple" : "https://dontpanicsell.files.wordpress.com/2017/06/mark.png?w=768",

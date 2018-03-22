@@ -12,14 +12,14 @@ const ytdl = require('ytdl-core')
 
 
 // main
-Array.prototype.randomElement = () =>{
+Array.prototype.randomElement = () => {
     return this[Math.floor(Math.random() * this.length)]
 }
 
 var jazz = (channel, message) =>{
 	channel.join()
 		.then(connection => {
-				var jazzPointers = ['plugins/music/jazz/jazz.mp3']
+				var jazzPointers = ['./plugins/music/jazz.m4a']
 				console.log(jazzPointers.randomElement())
 				var jazzFile = jazzPointers.randomElement()
     		const dispatcher = connection.playFile(jazzFile);

@@ -8,6 +8,8 @@ const money = require('./plugins/money.js')
 const games = require('./plugins/games.js')
 var system = require('./plugins/system.js')
 const userInfo = require('./plugins/userInfo.js')
+const politics = require('./plugins/politics.js')
+const help = require('./plugins/help.js')
 
 // other requirements
 const fs = require('fs')
@@ -85,6 +87,24 @@ var startUpMessage = (int) =>{
 	}
 }
 
+var welcome = (x) =>{
+	x.send("Hello @everyone! My name is Capitalism. I have a few features that I think you'll like.")
+	help.welcomeHelp(x)
+}
+
+var ownerMessage = (x, y) =>{
+	embed = new discord.RichEmbed()
+	text = ""
+	text += ":wave: Hello, @"
+	text += x.user.username
+	text += "#"
+	text += x.user.discriminator
+	text += ". Thank you for adding me to `"
+	text += y.name
+	text += "`"
+	embed.setTitle(text)
+	x.send(embed)
+}
 bot.on('ready', () =>{
 	bot.user.setStatus('dnd')
 	bot.user.setGame("with money.")
@@ -106,6 +126,11 @@ bot.on('ready', () =>{
 	fs.writeFile('plugins/data/uptime.json', JSON.stringify(uptime, null, 2));
 	setInterval(incrementSecs, 1000)
 });
+bot.on('guildCreate', (guild) =>{
+	console.log(guild.owner.lastMessage)
+	ownerMessage(guild.owner, guild)
+	welcome(guild.owner.lastMessage.channel)
+})
 bot.on('message', (message) => {
 	money.incrementCounter(message.author)
 	var check = money.checkAndUpdateBalance(message.author)
