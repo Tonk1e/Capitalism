@@ -20,9 +20,9 @@ var jazz = (channel, message) =>{
 	channel.join()
 		.then(connection => {
 				var jazzPointers = ['./plugins/music/jazz.m4a']
-				console.log(jazzPointers.randomElement())
+				console.log(jazzPointers[Math.floor(Math.random() * jazzPointers.length)])
 				var jazzFile = jazzPointers.randomElement()
-    		const dispatcher = connection.playFile(jazzFile);
+    		const dispatcher = connection.playFile(jazzPointers[Math.floor(Math.random() * jazzPointers.length)]);
     		dispatcher.setVolume(0.5)
     		dispatcher.on('error', e => {
 	    		channel.send(e)
