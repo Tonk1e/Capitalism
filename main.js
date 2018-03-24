@@ -19,6 +19,7 @@ const port1 = 1000
 const port2 = 1500;
 const uptimeFile = fs.readFileSync('plugins/data/uptime.json')
 var uptime = JSON.parse(uptimeFile)
+var referendumCounter = JSON.parse(fs.readFileSync('plugins/data/referendumCounter.json'))
 
 
 // main
@@ -105,6 +106,13 @@ var ownerMessage = (x, y) =>{
 	embed.setTitle(text)
 	x.send(embed)
 }
+
+var incrementReferendumCounter = (x) =>{
+	if()
+	referendumCounter[x.guild.id] += 1
+	fs.writeFile('plugins/data/referendumCounter.json', JSON.stringify(referendumCounter, null, 2));
+}
+
 bot.on('ready', () =>{
 	bot.user.setStatus('dnd')
 	bot.user.setGame("with money.")
@@ -132,6 +140,7 @@ bot.on('guildCreate', (guild) =>{
 	welcome(guild.owner.lastMessage.channel)
 })
 bot.on('message', (message) => {
+	incrementReferendumCounter(message)
 	money.incrementCounter(message.author)
 	var check = money.checkAndUpdateBalance(message.author)
 	switch(check){
@@ -145,6 +154,12 @@ bot.on('message', (message) => {
 	query.query(message, message.content)
 	if(message.content.startsWith('/play')){
 		games.playGame(message)
+	}
+	if(message.content.startsWith('/apply')){
+		if(message.author.bot){}else{
+			var partyApplication = message.content.substr(7)
+			politics.applyParty(message, partyApplication)
+		}
 	}
 	if(message.content.startsWith('/changewage')){
 		if(message.author.id == '292556142952054794'){

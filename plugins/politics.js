@@ -10,213 +10,166 @@ var beliefs = JSON.parse(beliefsFile)
 var partiesFile = fs.readFileSync('plugins/data/parties.json')
 var parties = JSON.parse(partiesFile)
 var timer_ = JSON.parse(fs.readFileSync('plugins/data/timer.json'))
+var applicationCache = JSON.parse(fs.readFileSync('plugins/data/partyApply.json'))
+var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
+var manifestoCache = JSON.parse(fs.readFileSync('plugins/data/manifestoCache.json'))
+var partyOwners = JSON.parse(fs.readFileSync('plugins/data/partyOwners.json'))
 
 // main
-var updateParty = (x, id, party) =>{
-  var partyGroups = [
-    "Republican",
-    "Democrat"
+var beginParty = (x) =>{
+  x.reply("The party application process has begun in your DMs.")
+  var embed = new discord.RichEmbed()
+  embed.setTitle("Political Party Information")
+  embed.setColor("ORANGE")
+  embed.setDescription("You have applied for starting your own political party that is a candidate for referendums in `" + x.guild.name + "`. There is a few things that you must know when starting a political party.")
+  info = ["1. Power", "2. Economics", "3. Manifesto", "4. Democracy"]
+  infoDesc = [
+  "If your political party is voted into power, this does not mean that you become the owner of the server, rather you decide on how the server is run. This will be looked at in more detail below.",
+  "When in power, you will decide on how the economy is run. Whether this is a socialist economy, free market capitalistic economy, or command economy, you, as the political leader, will decide on how it is run. You will also decide on tax rates, and how much the government will interfere with the economy.",
+  "You are required to write a manifesto for your party, and your party will not become a referendum candidate until this is written and the members of `" + x.guild.name + "` have access to it.",
+  "You must know that all servers, including `" + x.guild.name + "`, are run in a democratic system, and this cannot be changed. Your position is absed on the will of the people, and keep this in mind, because you can be voted out as well as in."
   ]
-  if(beliefs[id] == "Communist" || beliefs[id] == "Socialist" || beliefs[id] == "Feminist" || beliefs[id] == "Liberal"){
-    if(partyGroups[party] == "Republican"){
-      x.reply("That makes no sense.")
-    }else if(partyGroups[party] == "Democrat"){
-      parties[id] = partyGroups[party]
-      fs.writeFile('plugins/data/parties.json', JSON.stringify(parties, null, 2))
-      x.reply("You are now a " + partyGroups[party] + ".")
-    }else if(party == 'clear'){
-        beliefs[id] = null
-        fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-        x.reply("Your party has been cleared.")
+  for(i=0;i<info.length;i++){
+    embed.addField(info[i], infoDesc[i])
+  }
+  x.author.send(embed)
+  var embed2 = new discord.RichEmbed()
+  embed2.setTitle("Following is a demonstration of the format in which your party application should be written, and if it is not written in this way, then the application will not take place.")
+  embed2.setColor("ORANGE")
+  x.author.send(embed2)
+  x.author.send('/apply {"name" : "THE PARTY NAME"}')
+  applicationCache[x.author.id] = {"guildID" : x.guild.id, "cache" : true}
+  fs.writeFile('plugins/data/partyApply.json', JSON.stringify(applicationCache, null, 2));
+}
+
+var beginManifesto = (x) =>{
+  embed2 = new discord.RichEmbed()
+  embed2.setTitle("It is now time to begin writing your manifesto.")
+  embed2.setColor("ORANGE")
+  x.author.send(embed2)
+  var embed = new discord.RichEmbed()
+  embed.setTitle("Manifesto Information")
+  embed.setColor("ORANGE")
+  embed.addField("Language", "There is no limit or rules on the language used, so, in other words, say whatever the fuck you want.")
+  embed.addField("General Goal", "The goal of your manifesto is to persuade people to vote for you, so consider this when writing it. You will need to explain how your party's influence will have a positive effect on the server.")
+  embed.addField("Importance", "Your party will not be an referendum candidate until you have a manifesto that is written in full, and approved of by at least 3 guild members.")
+  x.author.send(embed)
+  embed3 = new discord.RichEmbed()
+  embed3.setTitle("Following is the format in which your manifesto should be created and written. Please follow it exactly so that there isn't any issues.")
+  embed3.setColor("ORANGE")
+  x.author.send(embed3)
+  x.author.send("/createmanifesto [WRITE THE FULL MANIFESTO HERE, AS LONG AS IT MAY BE]")
+  var manifestoCache = JSON.parse(fs.readFileSync('plugins/data/manifestoCache.json'))
+  manifestoCache[x.author.id] = true
+  fs.writeFile('plugins/data/manifestoCache.json', JSON.stringify(manifestoCache, null, 2));
+  fs.writeFile('plugins/data/partyOwners.json', JSON.stringify(partyOwners, null, 2));
+}
+
+var applyManifesto = (x, manifesto) =>{
+  var manifestoCache = JSON.parse(fs.readFileSync('plugins/data/manifestoCache.json'))
+  var partyOwners = JSON.parse(fs.readFileSync('plugins/data/partyOwners.json'))
+  if(manifestoCache[x.author.id]){
+    var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
+    if(parties[applicationCache[x.author.id]["guildID"]] == undefined){
+      console.log("yiay")
+      parties[applicationCache[x.author.id]["guildID"]] = {}
+      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
+      parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["manifesto"] = manifesto
+      manifestoCache[x.author.id] = false
+      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2)); 
+      fs.writeFile('plugins/data/manifestoCache.json', JSON.stringify(manifestoCache, null, 2));
     }else{
-      x.reply("That is not an available party.")
+      parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["manifesto"] = manifesto
+      manifestoCache[x.author.id] = false
+      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2)); 
+      fs.writeFile('plugins/data/manifestoCache.json', JSON.stringify(manifestoCache, null, 2));
+      embed = new discord.RichEmbed()
+      embed.setTitle("Your manifesto has been created, the members can now view it with `/manifesto " + parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["name"] + '`.')
+      embed.setColor("ORANGE")
+      x.author.send(embed)
     }
-  }else if(beliefs[id] == "Conservative" || beliefs[id] == "Neo-Nazi" || beliefs[id] == "Eco/Green"){
-    if(partyGroups[party] == "Democrat"){
-      x.reply("That makes no sense.")
-    }else if(partyGroups[party] == "Republican"){
-      parties[id] = partyGroups[party]
-      fs.writeFile('plugins/data/parties.json', JSON.stringify(parties, null, 2))
-      x.reply("You are now a " + partyGroups[party] + ".")
-    }else if(party == 'clear'){
-        beliefs[id] = null
-        fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-        x.reply("Your party has been cleared.")
-    }else{
-      x.reply("That is not an available party.")
-    }
+  }
+}
+
+var returnManifesto = (x, party) =>{
+  if(parties[x.guild.id][party] == undefined){
+    x.reply("That party does not exist. Please use /parties to receieve a list of this guild's parties.")
   }else{
-    if(party == 'clear'){
-        beliefs[id] = null
-        fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-        x.reply("Your party has been cleared.")
+    if(parties[x.guild.id][party]["manifesto"] == undefined){
+      x.reply("Sorry, but this party has not yet written their manifesto. Please urge the leader to do so.")
     }else{
-      parties[id] = partyGroups[party]
-      fs.writeFile('plugins/data/parties.json', JSON.stringify(parties, null, 2))
-      x.reply("You are now a " + partyGroups[party] + ".")
+      manifesto = parties[x.guild.id][party]["manifesto"]
+      embed = new discord.RichEmbed()
+      embed.setColor("ORANGE")
+      embed.setTitle(parties[x.guild.id][party]["name"] + "'s Manifesto")
+      embed.setDescription(manifesto)
+      x.channel.send(embed)
     }
   }
 }
 
-var updateBelief = (x, id, belief) =>{
-  var groups = [
-    "Communist",
-    "Conservative",
-    "Socialist",
-    "Neo-Nazi",
-    "Eco/Green",
-    "Feminist",
-    "Liberal"]
-  if(parties[id] == "Republican"){
-    if(groups[belief] == "Communist" || groups[belief] == "Socialist" || groups[belief] == "Feminist" || groups[belief] == "Liberal"){
-      x.reply("That makes no sense.")
-    }else if(beliefs[id] == "Conservative" || beliefs[id] == "Neo-Nazi" || beliefs[id] == "Eco/Green"){
-      beliefs[id] = groups[belief]
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("You are now a " + groups[belief] + ".")
-    }else if(belief == 'clear'){
-      beliefs[id] = null
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("Your group has been cleared.")
+var applyParty = (x, application) =>{
+  var applicationCache = JSON.parse(fs.readFileSync('plugins/data/partyApply.json'))
+  console.log(applicationCache[x.author.id]["guildID"])
+  if(applicationCache[x.author.id]["cache"]){
+    applicationJson = JSON.parse(application)
+    if(applicationJson["name"] == undefined){
+      x.author.send("An error has occurred, please make sure that you follow the steps carefully. Try again.")
     }else{
-      x.reply("That is not an available group.")
-    }
-  }else if(parties[id] == "Democrat"){
-    if(groups[belief] == "Conservative" || groups[belief] == "Neo-Nazi"){
-        x.reply("That doesn't make any sense.")
-    }else if(parties[id] == "Republican"){
-      beliefs[id] = groups[belief]
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("You are now a " + groups[belief] + ".")
-    }else if(belief == 'clear'){
-      beliefs[id] = null
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("Your group has been cleared.")
-    }else{
-      x.reply("That is not an available group.")
-    }
-  }else{
-    if(belief == 'clear'){
-      beliefs[id] = null
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("Your group has been cleared.")
-    }else{
-      beliefs[id] = groups[belief]
-      fs.writeFile('plugins/data/beliefs.json', JSON.stringify(beliefs, null, 2))
-      x.reply("You are now a " + groups[belief] + ".")
+      embed = new discord.RichEmbed()
+      embed.setTitle("Party Information")
+      embed.setColor("ORANGE")
+      embed.addField("Name", applicationJson["name"])
+      embed.addField("Leader", x.author.username)
+      x.author.send(embed)
+      applicationCache[x.author.id]["cache"] = false
+      fs.writeFile('plugins/data/partyApply.json', JSON.stringify(applicationCache, null, 2));
+      var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
+      applicationJson = JSON.parse(application)
+      console.log(parties[applicationCache[x.author.id]["guildID"]])
+      if(parties[applicationCache[x.author.id]["guildID"]] == undefined){
+        console.log("yiay")
+        parties[applicationCache[x.author.id]["guildID"]] = {}
+        fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
+        parties[applicationCache[x.author.id]["guildID"]][applicationJson["name"]] = {"name" : applicationJson["name"], "leader" : x.author.username}
+        partyOwners[x.author.id] = applicationJson["name"]
+        var embed2 = new discord.RichEmbed()
+        fs.writeFile('plugins/data/partyOwners.json', JSON.stringify(partyOwners, null, 2));
+        fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
+        embed2.setTitle("Thank you for applying, your party is now registered.")
+        embed2.setColor("ORANGE")
+        x.author.send(embed2)
+        beginManifesto(x) 
+      }else{
+        parties[applicationCache[x.author.id]["guildID"]][applicationJson["name"]] = {"name" : applicationJson["name"], "leader" : x.author.username}
+        partyOwners[x.author.id] = applicationJson["name"]
+        var embed2 = new discord.RichEmbed()
+        fs.writeFile('plugins/data/partyOwners.json', JSON.stringify(partyOwners, null, 2));
+        fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
+        embed2.setTitle("Thank you for applying, your party is now registered.")
+        embed2.setColor("ORANGE")
+        x.author.send(embed2)
+        beginManifesto(x)
+      }
     }
   }
 }
 
-var partiesEmbed = (x) =>{
-  var partyGroups = [
-    "Republican",
-    "Democrat"
-  ]
-  var embed = new discord.RichEmbed()
-  embed.setTitle('Available Parties')
-  embed.setColor('ORANGE')
-  var i;
-  for(i=0;i<partyGroups.length;i++){
-    embed.addField(i, partyGroups[i])
+var returnParties = (x) =>{
+  var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
+  embed = new discord.RichEmbed()
+  embed.setTitle("Available Parties")
+  embed.setColor("ORANGE")
+  embed.setDescription("This is a list of all the parties in this server that have been accepted by Capitalism into the system of democracy.")
+  for(party in parties[x.guild.id]){
+    console.log(party)
+    embed.addField(parties[x.guild.id][party]["name"], "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
   }
   x.channel.send(embed)
 }
 
-var beliefsEmbed = (x) =>{
-  var groups = [
-    "Communist",
-    "Conservative",
-    "Socialist",
-    "Neo-Nazi",
-    "Eco/Green",
-    "Feminist",
-    "Liberal"]
-  var embed = new discord.RichEmbed()
-  embed.setTitle('Available Idealogical Groups')
-  embed.setColor('ORANGE')
-  var i;
-  for(i=0;i<groups.length;i++){
-    embed.addField(i, groups[i])
-  }
-  x.channel.send(embed)
-}
-
-var beliefEmbed = (x) =>{
-  var beliefsFile = fs.readFileSync('plugins/data/beliefs.json')
-  var beliefs = JSON.parse(beliefsFile)
-  var partiesFile = fs.readFileSync('plugins/data/parties.json')
-  var parties = JSON.parse(partiesFile)
-  var embed = new discord.RichEmbed()
-  embed.setTitle("Politics")
-  embed.setColor('ORANGE')
-  embed.setThumbnail(x.author.avatarURL)
-  if(x.author.id in parties)(
-    embed.addField('Party', parties[x.author.id])
-  )
-  if(x.author.id in beliefs){
-    embed.addField('Idealogical Group', beliefs[x.author.id])
-  }
-  x.channel.send(embed)
-}
-
-var startTimer = (condition, time) =>{
-  timer = setInterval(() =>{
-    var timer_ = JSON.parse(fs.readFileSync('plugins/data/timer.json'))
-    timer_["timer"] += 1
-    fs.writeFile('plugins/data/timer.json', JSON.stringify(timer))
-    if(timer_["timer"] >= time){
-      return false
-      clearInterval(timer)
-    }
-    if(condition){
-      return true
-      clearInterval(timer)
-    }
-  })
-}
-
-var memberCounter = (array) =>{
-  var i
-  var x
-  for(i in array){
-    if(!i.bot){x += 1}
-  }
-  return x
-}
-
-var valueCounter = (array) =>{
-  var i
-  var x
-  for(i in array){
-    x += 1
-  }
-  return x
-}
-
-var holdReferendum = (x) =>{
-  x.channel.send("A referendum is taking place.")
-  x.channel.send("This will decide on who, as a collective, governs " + x.guild.name + ".")
-}
-
-var startReferendum = (x) =>{
-  x.channel.send("A referendum has been requested.")
-  x.channel.send("If the referendum is supported by a majority, then it will be held.")
-  x.channel.send("A referendum will take a full hour, so keep this in mind.")
-  x.channel.send("Leave a reaction on the following message to show your support:")
-  referendum = x.channel.send("**Should a referendum be held?**")
-  console.log(referendum)
-  members = memberCounter(x.guild.members.array())
-  var i = true
-  // var y = startTimer(reactions > (members / 2), 3600)
-  while(i){
-    x.channel.send("Suck my dick.")
-  }
-}
-
-module.exports.beliefEmbed = beliefEmbed
-module.exports.updateBelief = updateBelief
-module.exports.updateParty = updateParty
-module.exports.beliefsEmbed = beliefsEmbed
-module.exports.partiesEmbed = partiesEmbed
-module.exports.startReferendum = startReferendum
+module.exports.beginParty = beginParty
+module.exports.applyParty = applyParty
+module.exports.returnParties = returnParties
+module.exports.applyManifesto = applyManifesto
+module.exports.returnManifesto = returnManifesto

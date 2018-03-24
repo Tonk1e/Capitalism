@@ -202,7 +202,7 @@ var query = (x, y) =>{
 		case '/parties':{
 			logging.loggingHandler(x, '/parties', 'politics.partiesEmbed(x)')
 			incrementCommandUse(x.author.id)
-			politics.partiesEmbed(x)
+			politics.returnParties(x)
 			break
 		}
 		case '/referendum':{
@@ -271,16 +271,28 @@ var query = (x, y) =>{
 			}
 			break
 		}
+		case '/party':{
+			if(x.author.bot){
+				break
+			}else{
+				politics.beginParty(x)
+				break
+			}
+		}
 		default:{
 			break
 		}
 	}
+	if(y.startsWith('/manifesto')){
+		party = y.substr(11)
+		politics.returnManifesto(x, party)
+	}
+	if(y.startsWith('/createmanifesto')){
+		manifesto = y.substr(17)
+		politics.applyManifesto(x, manifesto)
+	}
 	if(y.startsWith('/news')){
 		news.requestHandler(x.channel, y.substr(6))
-	}
-	if(y.startsWith('/apply')){
-		form = y.substr(7)
-		business.addApplication(form)
 	}
 	if(y.startsWith('/transfer')){
 		logging.loggingHandler(x, '/transfer', 'money.transfer(x.author.id, id, amount)')
@@ -295,13 +307,6 @@ var query = (x, y) =>{
 		belief = y.substr(8)
 		console.log(belief)
 		politics.updateBelief(x, x.author.id, belief)
-	}
-	if(y.startsWith('/party')){
-		logging.loggingHandler(x, '/party', 'politics.updateParty(x, x.author.id, party)')
-		incrementCommandUse(x.author.id)
-		party = y.substr(7)
-		console.log(party)
-		politics.updateParty(x, x.author.id, party)
 	}
 	if(y.startsWith('/pc')){
 		logging.loggingHandler(x, '/pc', 'pc.main(x)')
