@@ -108,16 +108,18 @@ var ownerMessage = (x, y) =>{
 }
 
 var incrementReferendumCounter = (x) =>{
-	if(referendumCounter[x.guild.id] == undefined){
-		referendumCounter[x.guild.id] = 1
-	}else{
+	if(x.guild == null){}else{
+		if(referendumCounter[x.guild.id] == undefined){
+			referendumCounter[x.guild.id] = 1
+		}else{
 		referendumCounter[x.guild.id] += 1
-	}
-	if(referendumCounter[x.guild.id] == 1000){
-		politics.beginReferendum(x)
-		referendumCounter[x.guild.id] = 0
-	}
+		}
+		if(referendumCounter[x.guild.id] == 1000){
+			politics.beginReferendum(x)
+			referendumCounter[x.guild.id] = 0
+		}
 	fs.writeFile('plugins/data/referendumCounter.json', JSON.stringify(referendumCounter, null, 2));
+	}
 }
 
 bot.on('ready', () =>{
