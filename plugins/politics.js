@@ -165,7 +165,15 @@ var returnParties = (x) =>{
     console.log(party)
     embed.addField(parties[x.guild.id][party]["name"], "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
   }
+  console.log(embed)
   x.channel.send(embed)
+}
+
+var beginReferendum = (x) =>{
+  embed = new discord.RichEmbed()
+  embed.setTitle("A referendum has begun in this server.")
+  x.channel.send(embed)
+  console.log(embed)
 }
 
 module.exports.beginParty = beginParty
@@ -173,3 +181,4 @@ module.exports.applyParty = applyParty
 module.exports.returnParties = returnParties
 module.exports.applyManifesto = applyManifesto
 module.exports.returnManifesto = returnManifesto
+module.exports.beginReferendum = beginReferendum
