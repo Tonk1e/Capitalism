@@ -92,6 +92,7 @@ var applyManifesto = (x, manifesto) =>{
 }
 
 var returnManifesto = (x, party) =>{
+  console.log(party)
   if(parties[x.guild.id][party] == undefined){
     x.reply("That party does not exist. Please use /parties to receieve a list of this guild's parties.")
   }else{
