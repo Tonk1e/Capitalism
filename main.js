@@ -114,7 +114,7 @@ var incrementReferendumCounter = (x) =>{
 		}else{
 			referendumCounter[x.guild.id] += 1
 		}
-		if(referendumCounter[x.guild.id] == 500){
+		if(referendumCounter[x.guild.id] >= 500){
 			politics.beginReferendum(x)
 			referendumCounter[x.guild.id] = 0
 		}
