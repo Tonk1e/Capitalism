@@ -171,17 +171,43 @@ var returnParties = (x) =>{
   x.channel.send(embed)
 }
 
+var vote = (x) =>{}
+
 var beginReferendum = (x) =>{
   var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
   embed = new discord.RichEmbed()
   embed.setTitle("A referendum has begun in this server.")
+  embed.setColor("ORANGE")
   x.channel.send(embed)
+  embed2 = new discord.RichEmbed()
+  embed2.setTitle("Referendum Information")
+  embed2.setColor("ORANGE")
+  embed2.addField("How to vote", "To vote, please use `/vote [NAME OF PARTY]`. If you need to find which parties are available to vote for in this server, then please wait for the embed for available parties that will soon follow.")
+  embed2.addField("Why to vote", "This referendum will dictate who has power in this server. If the wrong person is elected, they may do corrupt things, that will affect you. So please, stand for your server and vote for the best government and leader.")
+  embed2.addField("How to begin your own party", "To start a party, please use `/party`, then follow the steps in your DMs with me, and get it set up.")
+  x.channel.send(embed2)
   console.log(embed)
   referendumJson[x.guild.id] = {}
   referendumJson[x.guild.id]["cache"] = true
   referendumJson[x.guild.id]["votes"] = {}
-  for(party in parties[x.guild.id]){
-    referendumJson[x.guild.id]["votes"][party] = 0
+  if(parties[x.guild.id] == undefined){
+    embed3 = new discord.RichEmbed()
+    embed3.setTitle("There are no parties registered for this server, so the referendum has been terminated. Please create a political party with `/party`.")
+    embed3.setColor("ORANGE")
+    x.channel.send(embed3)
+    referendumJson[x.guild.id]["cache"] = false
+    fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
+  }else{
+    embed4 = new discord.RichEmbed()
+    embed4.setTitle("Parties Available for Vote")
+    embed4.setColor("ORANGE")
+    for(party in parties[x.guild.id]){
+      if(parties[x.guild.id][party]["manifesto"] == undefined){}else{
+        referendumJson[x.guild.id]["votes"][party] = 0
+        embed4.addField(party, "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
+      }
+    }
+    x.channel.send(embed4)
   }
 }
 
