@@ -185,6 +185,7 @@ var returnParties = (x) =>{
 }
 
 var vote = (x, party) =>{
+  var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
   var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
   if(referendumJson[x.guild.id]["cache"]){
     if(parties[x.guild.id] == undefined){
