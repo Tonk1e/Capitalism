@@ -178,7 +178,7 @@ var beginReferendum = (x) =>{
   x.channel.send(embed)
   console.log(embed)
   referendumJson[x.guild.id] = {}
-  referedumJson[x.guild.id]["cache"] = true
+  referendumJson[x.guild.id]["cache"] = true
   referendumJson[x.guild.id]["votes"] = {}
   for(party in parties[x.guild.id]){
     referendumJson[x.guild.id]["votes"][party] = 0
