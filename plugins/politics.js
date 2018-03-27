@@ -196,6 +196,7 @@ var vote = (x, party) =>{
       referendumJson[x.guild.id]["votes"][party] += 1
       x.reply("Your vote for " + party + " has been counted.")
       console.log("yiay")
+      fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
     }
   }
 }
