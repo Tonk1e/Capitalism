@@ -163,18 +163,46 @@ var returnParties = (x) =>{
   embed.setTitle("Available Parties")
   embed.setColor("ORANGE")
   embed.setDescription("This is a list of all the parties in this server that have been accepted by Capitalism into the system of democracy.")
-  for(party in parties[x.guild.id]){
-    console.log(party)
-    embed.addField(parties[x.guild.id][party]["name"], "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
+  if(parties[x.guild.id] == undefined){
+    x.reply("There are no parties in this server.")
+  }else{
+    if(referendumJson[x.guild.id]["cache"]){
+      for(party in parties[x.guild.id]){
+        console.log(party)
+        if(parties[x.guild.id][party]["manifesto"] == undefined){}else{
+          embed.addField(parties[x.guild.id][party]["name"], "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
+        }
+      }
+    }else{
+      for(party in parties[x.guild.id]){
+        console.log(party)
+        embed.addField(parties[x.guild.id][party]["name"], "Leader: **" + parties[x.guild.id][party]["leader"] + "**. Use `/manifesto " + parties[x.guild.id][party]["name"] + "` to read their manifesto.")
+      }
+    }
+    console.log(embed)
+    x.channel.send(embed)
   }
-  console.log(embed)
-  x.channel.send(embed)
 }
 
-var vote = (x) =>{}
+var vote = (x, party) =>{
+  var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
+  var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
+  if(referendumJson[x.guild.id]["cache"]){
+    if(parties[x.guild.id] == undefined){
+      x.reply("There are no parties in this server.")
+    }else if(parties[x.guild.id][party] == undefined){
+      x.reply("That party doesn't exist.")
+    }else{
+      referendumJson[x.guild.id]["votes"][party] += 1
+      x.reply("Your vote for " + party + " has been counted.")
+    }
+
+  }
+}
 
 var beginReferendum = (x) =>{
   var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
+  var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
   embed = new discord.RichEmbed()
   embed.setTitle("A referendum has begun in this server.")
   embed.setColor("ORANGE")
@@ -209,6 +237,7 @@ var beginReferendum = (x) =>{
     }
     x.channel.send(embed4)
   }
+  fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
 }
 
 module.exports.beginParty = beginParty
