@@ -14,6 +14,7 @@ var applicationCache = JSON.parse(fs.readFileSync('plugins/data/partyApply.json'
 var parties = JSON.parse(fs.readFileSync('plugins/data/appliedParties.json'))
 var manifestoCache = JSON.parse(fs.readFileSync('plugins/data/manifestoCache.json'))
 var partyOwners = JSON.parse(fs.readFileSync('plugins/data/partyOwners.json'))
+var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
 
 // main
 var beginParty = (x) =>{
@@ -171,10 +172,17 @@ var returnParties = (x) =>{
 }
 
 var beginReferendum = (x) =>{
+  var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
   embed = new discord.RichEmbed()
   embed.setTitle("A referendum has begun in this server.")
   x.channel.send(embed)
   console.log(embed)
+  referendumJson[x.guild.id] = {}
+  referedumJson[x.guild.id]["cache"] = true
+  referendumJson[x.guild.id]["votes"] = {}
+  for(party in parties[x.guild.id]){
+    referendumJson[x.guild.id]["votes"][party] = 0
+  }
 }
 
 module.exports.beginParty = beginParty
