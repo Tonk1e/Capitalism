@@ -246,3 +246,4 @@ module.exports.returnParties = returnParties
 module.exports.applyManifesto = applyManifesto
 module.exports.returnManifesto = returnManifesto
 module.exports.beginReferendum = beginReferendum
+module.exports.vote = vote

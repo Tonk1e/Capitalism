@@ -283,6 +283,10 @@ var query = (x, y) =>{
 			break
 		}
 	}
+	if(y.startsWith('/vote')){
+		party = y.substr(6)
+		politics.vote(x, party)
+	}
 	if(y.startsWith('/manifesto')){
 		party = y.substr(11)
 		politics.returnManifesto(x, party)
