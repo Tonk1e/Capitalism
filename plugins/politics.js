@@ -196,7 +196,7 @@ var vote = (x, party) =>{
       x.reply("You have already voted.")
     }else{
       referendumJson[x.guild.id]["votes"][party] += 1
-      referendumJson[x.guild.id]["voters"] += x.author.id
+      referendumJson[x.guild.id]["voters"].push(x.author.id)
       x.reply("Your vote for " + party + " has been counted.")
       console.log("yiay")
       fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
@@ -235,7 +235,7 @@ var beginReferendum = (x) =>{
   referendumJson[x.guild.id] = {}
   referendumJson[x.guild.id]["cache"] = true
   referendumJson[x.guild.id]["votes"] = {}
-  referendumJson[x.guild.id]["voters"] = []
+  referendumJson[x.guild.id]["voters"] = []`
   if(parties[x.guild.id] == undefined){
     embed3 = new discord.RichEmbed()
     embed3.setTitle("There are no parties registered for this server, so the referendum has been terminated. Please create a political party with `/party`.")
