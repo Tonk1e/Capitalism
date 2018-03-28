@@ -192,7 +192,7 @@ var vote = (x, party) =>{
       x.reply("There are no parties in this server.")
     }else if(parties[x.guild.id][party] == undefined){
       x.reply("That party doesn't exist.")
-    }else if(x.author.id in referendumJson[x.guild.id]["voters"]){
+    }else if(referendumJson[x.guild.id]["voters"].includes(x.author.id)){
       x.reply("You have already voted.")
     }else{
       referendumJson[x.guild.id]["votes"][party] += 1
