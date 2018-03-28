@@ -77,12 +77,12 @@ var applyManifesto = (x, manifesto) =>{
       fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
       parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["manifesto"] = manifesto
       manifestoCache[x.author.id] = false
-      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2)); 
+      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
       fs.writeFile('plugins/data/manifestoCache.json', JSON.stringify(manifestoCache, null, 2));
     }else{
       parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["manifesto"] = manifesto
       manifestoCache[x.author.id] = false
-      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2)); 
+      fs.writeFile('plugins/data/appliedParties.json', JSON.stringify(parties, null, 2));
       fs.writeFile('plugins/data/manifestoCache.json', JSON.stringify(manifestoCache, null, 2));
       embed = new discord.RichEmbed()
       embed.setTitle("Your manifesto has been created, the members can now view it with `/manifesto " + parties[applicationCache[x.author.id]["guildID"]][partyOwners[x.author.id]]["name"] + '`.')
@@ -141,7 +141,7 @@ var applyParty = (x, application) =>{
         embed2.setTitle("Thank you for applying, your party is now registered.")
         embed2.setColor("ORANGE")
         x.author.send(embed2)
-        beginManifesto(x) 
+        beginManifesto(x)
       }else{
         parties[applicationCache[x.author.id]["guildID"]][applicationJson["name"]] = {"name" : applicationJson["name"], "leader" : x.author.username}
         partyOwners[x.author.id] = applicationJson["name"]
@@ -192,10 +192,26 @@ var vote = (x, party) =>{
       x.reply("There are no parties in this server.")
     }else if(parties[x.guild.id][party] == undefined){
       x.reply("That party doesn't exist.")
+    }else if(x.author.id in referendumJson[x.guild.id]["voters"]){
+      x.reply("You have already voted.")
     }else{
       referendumJson[x.guild.id]["votes"][party] += 1
+      referendumJson[x.guild.id]["voters"] += x.author.id
       x.reply("Your vote for " + party + " has been counted.")
       console.log("yiay")
+      fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
+    }
+  }
+}
+
+var referendumCountdown = (x) =>{
+  var referendumJson = JSON.parse(fs.readFileSync('plugins/data/referendum.json'))
+  if(referendumJson[x.guild.id]["cache"]){
+    if(referendumJson[x.guild.id]["counter"] == undefined){
+      referendumJson[x.guild.id]["counter"] = 1
+      fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
+    }else{
+      referendumJson[x.guild.id]["counter"] += 1
       fs.writeFile('plugins/data/referendum.json', JSON.stringify(referendumJson, null, 2));
     }
   }
